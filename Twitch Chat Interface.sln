@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Twitch Chat Interface", "Twitch Chat Interface\Twitch Chat Interface.pyproj", "{472AD081-0C14-4B28-83CA-D11C5A4F8E37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{472AD081-0C14-4B28-83CA-D11C5A4F8E37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472AD081-0C14-4B28-83CA-D11C5A4F8E37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D176243-059E-4EED-91E0-2426C2529EB3}
+	EndGlobalSection
+EndGlobal
