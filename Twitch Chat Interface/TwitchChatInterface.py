@@ -2,8 +2,9 @@ import threading
 import re 
 import socket
 
-from Modals.events.eventHandler import eventHandler as _EVENT
-from Modals.eventsEnum import  eventsEnum 
+from lib.events.eventHandler import eventHandler as _EVENT
+from modals.enums import eventsEnum, msgIdEnum 
+  
 
 
 class twitchChatInterface(object):
@@ -21,7 +22,7 @@ class twitchChatInterface(object):
 
     def __init__(self,settings :dict):
         """setting in JSON format"""
-
+        self.msgId :msgIdEnum = msgIdEnum
         self.EVENTS :eventsEnum = eventsEnum
         _EVENT.on(self.EVENTS.RECEIVED,_messageHandler)
         self._server :str = settings['server']
@@ -85,49 +86,4 @@ class twitchChatInterface(object):
     
 
 
-    def _messageHandler(self,sender,data):
-        parts = data.split("\r\n")
-        for part in parts:
-           message = parse.msg(part)
-           if message != None:
-                try:
-                    channel=message.params[0]
-                except:
-                    channel=None
-                try:
-                   message.msg = message.params[1] 
-                except:
-                    msg=None
-                try:
-                    msgid = message.tags["msg-id"]
-                except:
-                    msgid=None
-                try:
-                    message.tags = parse.badges(parse.emotes(message.tags))        
-                except:
-                    pass
-                if message.tags:
-                    for key in message.tags:
-                        if key != "emote-sets" and key != "ban-duration" and key != "bits":
-                            if _.isBool(message.tags[key]):
-                                message.tags[key] = None
-                            elif message.tags[key] == '1' or message.tags[key] == 1:
-                                message.tags[key] = True
-                            elif message.tags[key] == '0' or message.tags[key] == 0:
-                                message.tags[key] = False 
-                if message.prefix == None:
-                    if data.startswith("PING"):
-                        self.send(self.__PONG)
-                elif message.prefix == "tmi.twitch.tv":
-                    if message.command == "001":
-                        self.username = message.params[0]
-                    elif message.command == "372":
-                        self.emit(self,"CONNECTED",self.__server)
-                        self.joinrooms(self.__chatrooms)
-                    elif message.command == "NOTICE":
-                        none=None
-                elif message.prefix.count("tmi.twitch.tv")>0 and message.prefix.count("!")>0:
-                    message.username=message.prefix[:message.prefix.find("!")]
-                    message.displayName=message.tags["display-name"]
-                self.emit(self,"MESSAGE",message)
-        return
+    

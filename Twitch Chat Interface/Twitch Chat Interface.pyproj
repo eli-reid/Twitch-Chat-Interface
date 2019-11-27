@@ -5,12 +5,16 @@
     <ProjectGuid>472ad081-0c14-4b28-83ca-d11c5a4f8e37</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>TwitchChatInterface.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>..\Twitch Chat Interface</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Twitch Chat Interface</Name>
     <RootNamespace>Twitch Chat Interface</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <TestFramework>unittest</TestFramework>
+    <UnitTestPattern>test*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,28 +25,30 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Modals\eventsEnum.py">
+    <Compile Include="lib\messageHandler.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Modals\events\eventHandler.py" />
-    <Compile Include="Modals\events\__init__.py" />
-    <Compile Include="Modals\Message.py">
+    <Compile Include="lib\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Modals\__init__.py">
+    <Compile Include="modals\enums.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\events\eventHandler.py" />
+    <Compile Include="lib\events\__init__.py" />
+    <Compile Include="modals\message.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="modals\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TwitchChatInterface.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modals\" />
-    <Folder Include="Modals\events\" />
-    <Folder Include="Modals\events\unit tests\" />
-    <Folder Include="Modals\events\__pycache__\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Modals\events\__pycache__\eventHandler.cpython-37.pyc" />
-    <Content Include="Modals\events\__pycache__\__init__.cpython-37.pyc" />
+    <Folder Include="lib\" />
+    <Folder Include="modals\" />
+    <Folder Include="lib\events\" />
+    <Folder Include="lib\events\unit tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
