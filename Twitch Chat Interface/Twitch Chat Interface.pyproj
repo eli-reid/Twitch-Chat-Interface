@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>472ad081-0c14-4b28-83ca-d11c5a4f8e37</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TwitchChatInterface.py</StartupFile>
+    <StartupFile>chat test.py</StartupFile>
     <SearchPath>..\Twitch Chat Interface</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -15,6 +15,7 @@
     <TestFramework>unittest</TestFramework>
     <UnitTestPattern>test*.py</UnitTestPattern>
     <UnitTestRootDirectory>.</UnitTestRootDirectory>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,7 +26,24 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="lib\messageHandler.py">
+    <Compile Include="chat test.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\twitchMessageHandler\messageHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\twitchMessageHandler\modals\const.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\twitchMessageHandler\modals\message.py" />
+    <Compile Include="lib\twitchMessageHandler\modals\__init__.py" />
+    <Compile Include="lib\twitchMessageHandler\unit tests\messagHandlerTest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\twitchMessageHandler\parse.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="lib\twitchMessageHandler\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="lib\__init__.py">
@@ -36,9 +54,6 @@
     </Compile>
     <Compile Include="lib\events\eventHandler.py" />
     <Compile Include="lib\events\__init__.py" />
-    <Compile Include="modals\message.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="modals\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
+    <Folder Include="lib\twitchMessageHandler\" />
+    <Folder Include="lib\twitchMessageHandler\modals\" />
+    <Folder Include="lib\twitchMessageHandler\unit tests\" />
     <Folder Include="modals\" />
     <Folder Include="lib\events\" />
     <Folder Include="lib\events\unit tests\" />

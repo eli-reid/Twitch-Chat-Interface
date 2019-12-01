@@ -8,12 +8,14 @@ class eventHandler(object):
     _events :dict = dict()
     class EVENTS(Enum):
         ERROR="ERROR"
+    EVENTS=EVENTS
+    
     @classmethod
     def emit(cls,sender :any, event :Enum or str, obj :object = None, once :bool = False)->None:
         """
         eventHandler.emit - Event Emitter
         input : 
-            sender (obj) - function or class reponsible for event 
+            sender (obj) - string, function or class reponsible for event 
             event (event) - registered name of event 
             obj (any type) - any varible or object you want to pass to the self.on function
         """
@@ -24,7 +26,7 @@ class eventHandler(object):
                 func(sender,obj)
             return
         except Exception as err:
-            eventHandler.emit(eventHandler,EVENTS.ERROR, err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
 
     @classmethod
     def on(cls,event :Enum or str,func :object)->None:
@@ -40,7 +42,7 @@ class eventHandler(object):
             cls._events[event].add(func)
             return
         except Exception as err:
-            eventHandler.emit(eventHandler, EVENTS.ERROR, err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
 
     @classmethod
     def removeEvent(cls,event :str)->None:
@@ -49,7 +51,7 @@ class eventHandler(object):
             del(cls._events[event])
             return 
         except Exception as err:
-            eventHandler.emit(eventHandler, EVENTS.ERROR, err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
 
     @classmethod
     def removeFunc(cls,event :str,func :any)->None:
@@ -58,14 +60,17 @@ class eventHandler(object):
             cls._events[event].remove(func)
             return
         except Exception as err:
-            eventHandler.emit(eventHandler,EVENTS.ERROR,err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
+    @classmethod
+    def onError(cls,func):
+        eventHandler.on(eventHandler.EVENTS.ERROR,func)
     
     def _isRegistered(cls, event :str)->bool:
         """see if event is registered """
         try:
             return True if event in cls._events.keys() else False
         except Exception as err:
-            eventHandler.emit(eventHandler, EVENTS.ERROR,err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
 
     def _register(cls,event :str)->None:
         """  add new events to dictionary  """
@@ -74,7 +79,8 @@ class eventHandler(object):
                 cls._events[event] :_event =_event()
             return
         except Exception as err:
-            eventHandler.emit(eventHandler, EVENTS.ERROR,err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
+
 
 class _event(object):
     """  Event object stores callback functions for an event   """
@@ -88,7 +94,7 @@ class _event(object):
             self._callbacks.append(func)
             return
         except Exception as err:
-            eventHandler.emit(self.add, EVENTS.ERROR,err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
    
     def remove(self,func)->None:
         """ Remove function from event   """
@@ -96,12 +102,12 @@ class _event(object):
             self._callbacks.remove(func)
             return
         except Exception as err:
-            eventHandler.emit(self.remove, EVENTS.ERROR, err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
     
     def getCallbacks(self)->list:
         """   functions list getter returns function list   """
         try:
             return self._callbacks
         except Exception as err:
-            eventHandler.emit(self.getCallbacks, EVENTS.ERROR, err)
+            cls.emit(cls,cls.EVENTS.ERROR, err)
 
