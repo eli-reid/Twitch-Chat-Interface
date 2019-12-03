@@ -19,6 +19,7 @@ class messageHandler(object):
         """               """
         messageParts :list(str) = data.split("\r\n")
         for messagePart in messageParts:
+            print(messagePart)
             try:
                 message=self._parse.parse(messagePart)
             except Exception as err:
@@ -66,34 +67,80 @@ class messageHandler(object):
                         self._EVENT.emit("Handle message no prifix (messageHandler):",self.SERVEREVENTS.ERROR,err)
                 
                 # Handle message with prefix "tmi.twitch.tv"
-                elif message.prefix == "tmi.twitch.tv":
+                elif message.prefix == self.SERVEREVENTS.TMI_TWITCH_TV:
                    
-                    if message.command in ["002","003","004","375", "376","CAP" ]:
-                       pass
-               
-                    elif message.command == "001":  # Get Username
+                    if message.command == self.SERVEREVENTS.USERNAME:  # Get Username
                         self.username = message.params[0]
 
-                    elif message.command == "372":  # Connected to server
+                    elif message.command == self.SERVEREVENTS.CONNECTED:  # Connected to server
                        self._EVENT.emit(self,self.SERVEREVENTS.CONNECTED)
                     
-                    elif message.command == "CLEARCHAT":
+                    elif message.command == self.COMMANDS.CLEARCHAT:
                         none=None
-                    elif message.command == "CLEARMSG":
+                    elif message.command == self.COMMANDS.CLEARMSG:
                         none=None
-                    elif message.command == "HOSTTARGET":
+                    elif message.command == self.COMMANDS.HOSTTARGET:
                         none=None
                      
                     # Chatroom notice check msgid tag
                     elif message.command == self.COMMANDS.NOTICE:
                         self._EVENT.emit(self,self.COMMANDS.NOTICE,message)
                             
-
                         if message.id == self.MESSAGEIDS.SUBS_ON:
                             self._EVENT.emit(self,self.MESSAGEIDS.SUBS_ON, message.channel)
                         
+                        elif message.id == self.MESSAGEIDS.WHISPER_BANNED:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
                         elif message.id == self.MESSAGEIDS.SUBS_OFF:
                             self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+                       
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+                            
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+                        elif message.id == self.MESSAGEIDS.SUBS_OFF:
+                            self._EVENT.emit(self,self.MESSAGEIDS.SUBS_OFF, message.channel)
+
+
                     
                         else:
                             if message.raw.find("Login unsuccessful") > 0 \
@@ -109,13 +156,13 @@ class messageHandler(object):
                                 self._EVENT.emit(self,self.SERVEREVENTS.LOGIN_UNSUCCESSFUL, "Login authentication failed")   
 
 
-                    elif message.command == "RECONNECT":
+                    elif message.command == self.COMMANDS.RECONNECT:
+                        print ("RECONNECT")
+                    elif message.command == self.COMMANDS.ROOMSTATE:
                         none=None
-                    elif message.command == "ROOMSTATE":
+                    elif message.command == self.COMMANDS.USERNOTICE:
                         none=None
-                    elif message.command == "USERNOTICE":
-                        none=None
-                    elif message.command == "USERSTATE":
+                    elif message.command == self.COMMANDS.USERSTATE:
                         none=None
                     
 
@@ -125,7 +172,7 @@ class messageHandler(object):
                 
 
                 else: 
-                    if message.command =='PRIVMSG': 
+                    if message.command == self.SERVEREVENTS.MESSAGE: 
                         message.tags["username"] :str = message.prefix[:message.prefix.find("!")]
                         self._EVENT.emit(self,self.SERVEREVENTS.MESSAGE,message)
                     

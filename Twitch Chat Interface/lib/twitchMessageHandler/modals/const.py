@@ -10,6 +10,7 @@ class serverEvents():
     NAMES = "353"
     WHISPER = "WHISPER"
     PART = "PART"
+    TMI_TWITCH_TV = "tmi.twitch.tv"
 
  
 class commands():

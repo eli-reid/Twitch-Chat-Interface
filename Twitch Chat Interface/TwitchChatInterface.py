@@ -6,6 +6,7 @@ from lib.events.eventHandler import eventHandler as _EVENT
 from modals.enums import eventsEnum 
 from lib.twitchMessageHandler.messageHandler import messageHandler
 import queue
+from datetime import datetime
 
 class twitchChatInterface(object):
     """
@@ -17,13 +18,16 @@ class twitchChatInterface(object):
     _PASS :str = "PASS {}"
     _NICK :str = "NICK {}"
     _JOIN :str = "JOIN #{}"
-    _PONG :str = "PONG"
-    _PING :str = "PING"
+    _PONG :str = "PONG :{}"
+    _PING :str = "PING :{}"
+    
 
 
     def __init__(self,settings :dict):
         """set values from settings"""
-
+        now = datetime.now()
+        self.start_time = now.strftime("%H:%M:%S")
+        
         self._sendMessageQ = queue.SimpleQueue()
         self._messageHandler = messageHandler()
         self.EVENTS :eventsEnum = eventsEnum
@@ -32,6 +36,8 @@ class twitchChatInterface(object):
         _EVENT.onError(self._ERROR)
         _EVENT.on(self.EVENTS.ERROR,self._ERROR)
         _EVENT.on(self._messageHandler.SERVEREVENTS.CONNECTED,self._CONNECTED)
+        _EVENT.on(self._messageHandler.COMMANDS.PING,self._onPING)
+        _EVENT.on(self._messageHandler.COMMANDS.PONG,self._onPONG)
         
         # Populate settings values
         self._server :str = settings['server']
@@ -42,8 +48,8 @@ class twitchChatInterface(object):
 
         # Set helper Varibles
         self._disconnect :bool = False
-        self.username=""
-        
+        self._lastPing = time.time()
+        self._pingWait = 5*60
            
     def connect(self)->None:
         """ 
@@ -91,11 +97,20 @@ class twitchChatInterface(object):
         """   """
         while self._disconnect == False:
             try:
+                if time.time() - self._lastPing > self._pingWait:
+                    print("ping timer")
+                    self._lastPing = time.time()
+                    print(self._PING.format("tmi.twitch.tv"))
+                    dataLength :int= len(self._PING.format("tmi.twitch.tv").encode())
+                    while dataLength > 0:
+                        dataLength -= self._socket.send(self._PING.format("tmi.twitch.tv").encode())
                 data :str = self._socket.recv(4096).decode()
-                self._messageHandler.messageHandler(data)
-                _EVENT.emit(self,self.EVENTS.RECEIVED, data)
-            except socket.error as err:
+                if len(data)>0:
+                    self._messageHandler.messageHandler(data)
+                    _EVENT.emit(self,self.EVENTS.RECEIVED, data)
+            except Exception as err:
                 _EVENT.emit(self._awaitResponse,self.EVENTS.ERROR,err)
+
         self._socket.close()
         _EVENT.emit(self,self.EVENTS.DISCONNECTED)
 
@@ -106,11 +121,34 @@ class twitchChatInterface(object):
      
     def _ERROR(self,sender,obj):
         print("ERROR:  ",sender, obj)
+        self.disconnect()
 
     def _CONNECTED(self,sender,obj):
         joinRoomsThread=threading.Thread(daemon=True,target=self.joinRooms,kwargs={'rooms':self._chatrooms})
         joinRoomsThread.start()
-        
+    
+    def _onPING(self,sender,obj):
+        try:
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            print("Start Time:",self.start_time,"Current Time:", current_time)
+            print(self._PONG.format("tmi.twitch.tv"))
+            dataLength :int= len(self._PONG.format("tmi.twitch.tv").encode())
+            while dataLength > 0:
+                dataLength -= self._socket.send(self._PONG.format("tmi.twitch.tv").encode())
+        except Exception as err:
+           _EVENT.emit(self, self.EVENTS.ERROR, err)
+        return 
+     
+    def _onPONG(self,sender,obj):
+        try:
+            print(self._PING.format("tmi.twitch.tv"))
+            dataLength :int= len(self._PING.format("tmi.twitch.tv").encode())
+            while dataLength > 0:
+                dataLength -= self._socket.send(self._PING.format("tmi.twitch.tv").encode())
+        except Exception as err:
+           _EVENT.emit(self, self.EVENTS.ERROR, err)
+        return   
         
     # Event setter fucntions
     def onMESSAGE(self,func):
