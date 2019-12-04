@@ -1,4 +1,3 @@
-from enum import Enum
 
 class eventHandler(object):
     """ 
@@ -6,12 +5,12 @@ class eventHandler(object):
     author: Eli Reid
     """
     _events :dict = dict()
-    class EVENTS(Enum):
+    class EVENTS(object):
         ERROR="ERROR"
-    EVENTS=EVENTS
+    
     
     @classmethod
-    def emit(cls,sender :any, event :Enum or str, obj :object = None, once :bool = False)->None:
+    def emit(cls,sender :any, event :dict or str, obj :object = None, once :bool = False)->None:
         """
         eventHandler.emit - Event Emitter
         input : 
@@ -29,7 +28,7 @@ class eventHandler(object):
             cls.emit(cls,cls.EVENTS.ERROR, err)
 
     @classmethod
-    def on(cls,event :Enum or str,func :object)->None:
+    def on(cls,event :dict or str,func :object)->None:
         """
         Catches events and calls a stored list of functions
         Input:

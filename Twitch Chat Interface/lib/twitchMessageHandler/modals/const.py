@@ -1,3 +1,4 @@
+
 class serverEvents():
     LOGIN_UNSUCCESSFUL = "LOGIN_UNSUCCESSFUL"
     MESSAGE = "PRIVMSG"
@@ -12,7 +13,6 @@ class serverEvents():
     PART = "PART"
     TMI_TWITCH_TV = "tmi.twitch.tv"
 
- 
 class commands():
     PING = "PING"
     PONG = "PONG"
@@ -24,9 +24,6 @@ class commands():
     ROOMSTATE = "ROOMSTATE"
     USERNOTICE = "USERNOTICE"
     USERSTATE = "USERSTATE"
-    
-
-
 
 class msgIds():
     ALREADY_BANNED =  "already_banned"

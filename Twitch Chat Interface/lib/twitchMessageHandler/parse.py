@@ -5,9 +5,9 @@ class parse(object):
     parses incomming data from IRC chat 
     outputs : message 
     """
-
-    def badges(tags):
-        """parse badges list"""
+    @staticmethod
+    def badges(tags)->dict:
+        """parse badges dict"""
         try:
             if "badges" in tags and type(tags["badges"])==str:
                 badges={}
@@ -26,7 +26,7 @@ class parse(object):
             return tags
         except:
             pass
-
+    @staticmethod
     def emotes(tags)->list:
         """ parse emotes to list"""
         try:
@@ -48,8 +48,8 @@ class parse(object):
             pass
 
 
-   
-    def parse(self,data :str)->Message:
+    @staticmethod
+    def parse(data :str)->Message:
 
         message :Message = Message()
         position=0
