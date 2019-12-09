@@ -7,8 +7,7 @@ class eventHandler(object):
     _events :dict = dict()
     class EVENTS(object):
         ERROR="ERROR"
-    
-    
+ 
     @classmethod
     def emit(cls,sender :any, event :dict or str, obj :object = None, once :bool = False)->None:
         """

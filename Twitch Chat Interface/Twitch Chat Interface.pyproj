@@ -49,14 +49,8 @@
     <Compile Include="lib\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="modals\enums.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="lib\events\eventHandler.py" />
     <Compile Include="lib\events\__init__.py" />
-    <Compile Include="modals\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TwitchChatInterface.py" />
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +58,6 @@
     <Folder Include="lib\twitchMessageHandler\" />
     <Folder Include="lib\twitchMessageHandler\modals\" />
     <Folder Include="lib\twitchMessageHandler\unit tests\" />
-    <Folder Include="modals\" />
     <Folder Include="lib\events\" />
     <Folder Include="lib\events\unit tests\" />
   </ItemGroup>

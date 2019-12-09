@@ -1,5 +1,26 @@
+def const(cls):
+    class ConstantError(TypeError): pass
+    def __call__(self):
+        return self
+    def __setattr__(self,name,value):
+        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+    def __delattr__(self,name):
+        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+    cls.__setattr__=__setattr__
+    cls.__delattr__=__delattr__
+    cls.__call__=__call__
+    if not hasattr(cls,'_instance'):
+        cls._instance = cls()
+        cls=cls._instance
+    return cls
 
-class serverEvents():
+@const   
+class EVENTS():
+    SUBSOFF = "subsoff"
+    SUBSON = "subson"
+@const
+class SERVEREVENTS:
+   
     LOGIN_UNSUCCESSFUL = "LOGIN_UNSUCCESSFUL"
     MESSAGE = "PRIVMSG"
     JOIN = "JOIN"
@@ -13,7 +34,10 @@ class serverEvents():
     PART = "PART"
     TMI_TWITCH_TV = "tmi.twitch.tv"
 
-class commands():
+
+@const
+class COMMANDS():
+   
     PING = "PING"
     PONG = "PONG"
     CLEARCHAT = "CLEARCHAT"
@@ -24,9 +48,10 @@ class commands():
     ROOMSTATE = "ROOMSTATE"
     USERNOTICE = "USERNOTICE"
     USERSTATE = "USERSTATE"
-
-class msgIds():
-    ALREADY_BANNED =  "already_banned"
+@const
+class MESSAGEIDS():
+  
+    ALREADY_BANNED = "already_banned"
     ALREADY_EMOTE_ONLY_OFF =  "already_emote_only_off"
     ALREADY_EMOTE_ONLY_ON =  "already_emote_only_on"
     ALREADY_R9K_OFF =  "already_r9k_off"
@@ -169,4 +194,3 @@ class msgIds():
     WHISPER_LIMIT_PER_SEC =  "whisper_limit_per_sec"
     WHISPER_RESTRICTED =  "whisper_restricted"
     WHISPER_RESTRICTED_RECIPIENT =  "whisper_restricted_recipient"
-
