@@ -1,0 +1,1144 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Twitch Chat Interface &#8212; Twitch Chat Interface .0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Twitch Message Handler" href="lib/twitchMessageHandler/TwitchMessageHandler.html" />
+    <link rel="prev" title="Welcome to Twitch Chat Interface’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib/twitchMessageHandler/TwitchMessageHandler.html" title="Twitch Message Handler"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Twitch Chat Interface’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Twitch Chat Interface .0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-TwitchChatInterface">
+<span id="twitch-chat-interface"></span><h1>Twitch Chat Interface<a class="headerlink" href="#module-TwitchChatInterface" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="TwitchChatInterface.TwitchChatInterface">
+<em class="property">class </em><code class="sig-prename descclassname">TwitchChatInterface.</code><code class="sig-name descname">TwitchChatInterface</code><span class="sig-paren">(</span><em class="sig-param">settings: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>creates connection to twitch chat irc server and receives chat messages</dt><dd><p>then emits events for the type of message received</p>
+</dd>
+</dl>
+<dl class="class">
+<dt id="TwitchChatInterface.TwitchChatInterface.On">
+<em class="property">class </em><code class="sig-name descname">On</code><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for events</p>
+<p>using on.event you can register listen for any event in the twitch irc responses</p>
+<p><em>EXAMPLE</em>:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Function</dt>
+<dd class="field-odd"><p>on.eventConnect(func)</p>
+</dd>
+<dt class="field-even">Params func</dt>
+<dd class="field-even"><p>is function pointer</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I am connected&quot;</span><span class="p">)</span>
+    <span class="k">return</span>
+
+<span class="n">on</span><span class="o">.</span><span class="n">eventConnect</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+<dl class="class">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent">
+<em class="property">class </em><code class="sig-name descname">CommandEvent</code><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.CLEARMSG">
+<code class="sig-name descname">CLEARMSG</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.CLEARMSG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.HOSTTARGET">
+<code class="sig-name descname">HOSTTARGET</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.HOSTTARGET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.NOTICE">
+<code class="sig-name descname">NOTICE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.NOTICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.PING">
+<code class="sig-name descname">PING</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.PING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.PONG">
+<code class="sig-name descname">PONG</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.PONG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.RECONNECT">
+<code class="sig-name descname">RECONNECT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.RECONNECT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.ROOMSTATE">
+<code class="sig-name descname">ROOMSTATE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.ROOMSTATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.USERNOTICE">
+<code class="sig-name descname">USERNOTICE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.USERNOTICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.CommandEvent.USERSTATE">
+<code class="sig-name descname">USERSTATE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.CommandEvent.USERSTATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent">
+<em class="property">class </em><code class="sig-name descname">MsgIdEvent</code><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_BANNED">
+<code class="sig-name descname">ALREADY_BANNED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_BANNED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_EMOTE_ONLY_OFF">
+<code class="sig-name descname">ALREADY_EMOTE_ONLY_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_EMOTE_ONLY_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_EMOTE_ONLY_ON">
+<code class="sig-name descname">ALREADY_EMOTE_ONLY_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_EMOTE_ONLY_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_R9K_OFF">
+<code class="sig-name descname">ALREADY_R9K_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_R9K_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_R9K_ON">
+<code class="sig-name descname">ALREADY_R9K_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_R9K_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_SUBS_OFF">
+<code class="sig-name descname">ALREADY_SUBS_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_SUBS_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_SUBS_ON">
+<code class="sig-name descname">ALREADY_SUBS_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ALREADY_SUBS_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_ADMIN">
+<code class="sig-name descname">BAD_BAN_ADMIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_ADMIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_ANON">
+<code class="sig-name descname">BAD_BAN_ANON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_ANON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_BROADCASTER">
+<code class="sig-name descname">BAD_BAN_BROADCASTER</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_BROADCASTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_GLOBAL_MOD">
+<code class="sig-name descname">BAD_BAN_GLOBAL_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_GLOBAL_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_MOD">
+<code class="sig-name descname">BAD_BAN_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_SELF">
+<code class="sig-name descname">BAD_BAN_SELF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_SELF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_STAFF">
+<code class="sig-name descname">BAD_BAN_STAFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_BAN_STAFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_COMMERCIAL_ERROR">
+<code class="sig-name descname">BAD_COMMERCIAL_ERROR</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_COMMERCIAL_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_DELETE_MESSAGE_BROADCASTER">
+<code class="sig-name descname">BAD_DELETE_MESSAGE_BROADCASTER</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_DELETE_MESSAGE_BROADCASTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_DELETE_MESSAGE_MOD">
+<code class="sig-name descname">BAD_DELETE_MESSAGE_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_DELETE_MESSAGE_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_ERROR">
+<code class="sig-name descname">BAD_HOST_ERROR</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_HOSTING">
+<code class="sig-name descname">BAD_HOST_HOSTING</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_HOSTING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_RATE_EXCEEDED">
+<code class="sig-name descname">BAD_HOST_RATE_EXCEEDED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_RATE_EXCEEDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_REJECTED">
+<code class="sig-name descname">BAD_HOST_REJECTED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_REJECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_SELF">
+<code class="sig-name descname">BAD_HOST_SELF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_HOST_SELF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_MARKER_CLIENT">
+<code class="sig-name descname">BAD_MARKER_CLIENT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_MARKER_CLIENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_MOD_BANNED">
+<code class="sig-name descname">BAD_MOD_BANNED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_MOD_BANNED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_MOD_MOD">
+<code class="sig-name descname">BAD_MOD_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_MOD_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_SLOW_DURATION">
+<code class="sig-name descname">BAD_SLOW_DURATION</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_SLOW_DURATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_ADMIN">
+<code class="sig-name descname">BAD_TIMEOUT_ADMIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_ADMIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_ANON">
+<code class="sig-name descname">BAD_TIMEOUT_ANON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_ANON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_BROADCASTER">
+<code class="sig-name descname">BAD_TIMEOUT_BROADCASTER</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_BROADCASTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_DURATION">
+<code class="sig-name descname">BAD_TIMEOUT_DURATION</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_DURATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_GLOBAL_MOD">
+<code class="sig-name descname">BAD_TIMEOUT_GLOBAL_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_GLOBAL_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_MOD">
+<code class="sig-name descname">BAD_TIMEOUT_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_SELF">
+<code class="sig-name descname">BAD_TIMEOUT_SELF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_SELF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_STAFF">
+<code class="sig-name descname">BAD_TIMEOUT_STAFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_TIMEOUT_STAFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_UNBAN_NO_BAN">
+<code class="sig-name descname">BAD_UNBAN_NO_BAN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_UNBAN_NO_BAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_UNHOST_ERROR">
+<code class="sig-name descname">BAD_UNHOST_ERROR</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_UNHOST_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_UNMOD_MOD">
+<code class="sig-name descname">BAD_UNMOD_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAD_UNMOD_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAN_SUCCESS">
+<code class="sig-name descname">BAN_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.BAN_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.CMDS_AVAILABLE">
+<code class="sig-name descname">CMDS_AVAILABLE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.CMDS_AVAILABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.COLOR_CHANGED">
+<code class="sig-name descname">COLOR_CHANGED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.COLOR_CHANGED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.COMMERCIAL_SUCCESS">
+<code class="sig-name descname">COMMERCIAL_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.COMMERCIAL_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.DELETE_MESSAGE_SUCCESS">
+<code class="sig-name descname">DELETE_MESSAGE_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.DELETE_MESSAGE_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.EMOTE_ONLY_OFF">
+<code class="sig-name descname">EMOTE_ONLY_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.EMOTE_ONLY_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.EMOTE_ONLY_ON">
+<code class="sig-name descname">EMOTE_ONLY_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.EMOTE_ONLY_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.FOLLOWERS_OFF">
+<code class="sig-name descname">FOLLOWERS_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.FOLLOWERS_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.FOLLOWERS_ON">
+<code class="sig-name descname">FOLLOWERS_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.FOLLOWERS_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.FOLLOWERS_ONZERO">
+<code class="sig-name descname">FOLLOWERS_ONZERO</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.FOLLOWERS_ONZERO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOSTS_REMAINING">
+<code class="sig-name descname">HOSTS_REMAINING</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOSTS_REMAINING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_OFF">
+<code class="sig-name descname">HOST_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_ON">
+<code class="sig-name descname">HOST_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_SUCCESS">
+<code class="sig-name descname">HOST_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_SUCCESS_VIEWERS">
+<code class="sig-name descname">HOST_SUCCESS_VIEWERS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_SUCCESS_VIEWERS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_TARGET_WENT_OFFLINE">
+<code class="sig-name descname">HOST_TARGET_WENT_OFFLINE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.HOST_TARGET_WENT_OFFLINE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.INVALID_USER">
+<code class="sig-name descname">INVALID_USER</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.INVALID_USER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MOD_SUCCESS">
+<code class="sig-name descname">MOD_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MOD_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_BAD_CHARACTERS">
+<code class="sig-name descname">MSG_BAD_CHARACTERS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_BAD_CHARACTERS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_BANNED">
+<code class="sig-name descname">MSG_BANNED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_BANNED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_CHANNEL_BLOCKED">
+<code class="sig-name descname">MSG_CHANNEL_BLOCKED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_CHANNEL_BLOCKED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_CHANNEL_SUSPENDED">
+<code class="sig-name descname">MSG_CHANNEL_SUSPENDED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_CHANNEL_SUSPENDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_DUPLICATE">
+<code class="sig-name descname">MSG_DUPLICATE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_DUPLICATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_EMOTEONLY">
+<code class="sig-name descname">MSG_EMOTEONLY</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_EMOTEONLY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FACEBOOK">
+<code class="sig-name descname">MSG_FACEBOOK</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FACEBOOK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FOLLOWERSONLY">
+<code class="sig-name descname">MSG_FOLLOWERSONLY</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FOLLOWERSONLY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FOLLOWERSONLY_FOLLOWED">
+<code class="sig-name descname">MSG_FOLLOWERSONLY_FOLLOWED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FOLLOWERSONLY_FOLLOWED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FOLLOWERSONLY_ZERO">
+<code class="sig-name descname">MSG_FOLLOWERSONLY_ZERO</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_FOLLOWERSONLY_ZERO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_R9K">
+<code class="sig-name descname">MSG_R9K</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_R9K" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_RATELIMIT">
+<code class="sig-name descname">MSG_RATELIMIT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_RATELIMIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_REJECTED">
+<code class="sig-name descname">MSG_REJECTED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_REJECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_REJECTED_MANDATORY">
+<code class="sig-name descname">MSG_REJECTED_MANDATORY</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_REJECTED_MANDATORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_ROOM_NOT_FOUND">
+<code class="sig-name descname">MSG_ROOM_NOT_FOUND</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_ROOM_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_SLOWMODE">
+<code class="sig-name descname">MSG_SLOWMODE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_SLOWMODE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_SUBSONLY">
+<code class="sig-name descname">MSG_SUBSONLY</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_SUBSONLY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_SUSPENDED">
+<code class="sig-name descname">MSG_SUSPENDED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_SUSPENDED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_TIMEDOUT">
+<code class="sig-name descname">MSG_TIMEDOUT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_TIMEDOUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_VERIFIED_EMAIL">
+<code class="sig-name descname">MSG_VERIFIED_EMAIL</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.MSG_VERIFIED_EMAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NOT_HOSTING">
+<code class="sig-name descname">NOT_HOSTING</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NOT_HOSTING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NO_HELP">
+<code class="sig-name descname">NO_HELP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NO_HELP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NO_MODS">
+<code class="sig-name descname">NO_MODS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NO_MODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NO_PERMISSION">
+<code class="sig-name descname">NO_PERMISSION</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.NO_PERMISSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.R9K_OFF">
+<code class="sig-name descname">R9K_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.R9K_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.R9K_ON">
+<code class="sig-name descname">R9K_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.R9K_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_ALREADY_RAIDING">
+<code class="sig-name descname">RAID_ERROR_ALREADY_RAIDING</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_ALREADY_RAIDING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_FORBIDDEN">
+<code class="sig-name descname">RAID_ERROR_FORBIDDEN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_FORBIDDEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_SELF">
+<code class="sig-name descname">RAID_ERROR_SELF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_SELF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_TOO_MANY_VIEWERS">
+<code class="sig-name descname">RAID_ERROR_TOO_MANY_VIEWERS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_TOO_MANY_VIEWERS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_UNEXPECTED">
+<code class="sig-name descname">RAID_ERROR_UNEXPECTED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_ERROR_UNEXPECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_NOTICE_MATURE">
+<code class="sig-name descname">RAID_NOTICE_MATURE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_NOTICE_MATURE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_NOTICE_RESTRICTED_CHAT">
+<code class="sig-name descname">RAID_NOTICE_RESTRICTED_CHAT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.RAID_NOTICE_RESTRICTED_CHAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ROOM_MODS">
+<code class="sig-name descname">ROOM_MODS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.ROOM_MODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SLOW_OFF">
+<code class="sig-name descname">SLOW_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SLOW_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SLOW_ON">
+<code class="sig-name descname">SLOW_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SLOW_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SUBS_OFF">
+<code class="sig-name descname">SUBS_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SUBS_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SUBS_ON">
+<code class="sig-name descname">SUBS_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.SUBS_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TIMEOUT_NO_TIMEOUT">
+<code class="sig-name descname">TIMEOUT_NO_TIMEOUT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TIMEOUT_NO_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TIMEOUT_SUCCESS">
+<code class="sig-name descname">TIMEOUT_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TIMEOUT_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TOS_BAN">
+<code class="sig-name descname">TOS_BAN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TOS_BAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TURBO_ONLY_COLOR">
+<code class="sig-name descname">TURBO_ONLY_COLOR</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.TURBO_ONLY_COLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNBAN_SUCCESS">
+<code class="sig-name descname">UNBAN_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNBAN_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNMOD_SUCCESS">
+<code class="sig-name descname">UNMOD_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNMOD_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRAID_ERROR_NO_ACTIVE_RAID">
+<code class="sig-name descname">UNRAID_ERROR_NO_ACTIVE_RAID</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRAID_ERROR_NO_ACTIVE_RAID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRAID_ERROR_UNEXPECTED">
+<code class="sig-name descname">UNRAID_ERROR_UNEXPECTED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRAID_ERROR_UNEXPECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRAID_SUCCESS">
+<code class="sig-name descname">UNRAID_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRAID_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRECOGNIZED_CMD">
+<code class="sig-name descname">UNRECOGNIZED_CMD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNRECOGNIZED_CMD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNSUPPORTED_CHATROOMS_CMD">
+<code class="sig-name descname">UNSUPPORTED_CHATROOMS_CMD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNSUPPORTED_CHATROOMS_CMD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNTIMEOUT_BANNED">
+<code class="sig-name descname">UNTIMEOUT_BANNED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNTIMEOUT_BANNED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNTIMEOUT_SUCCESS">
+<code class="sig-name descname">UNTIMEOUT_SUCCESS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.UNTIMEOUT_SUCCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_BAN">
+<code class="sig-name descname">USAGE_BAN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_BAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_CLEAR">
+<code class="sig-name descname">USAGE_CLEAR</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_CLEAR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_COLOR">
+<code class="sig-name descname">USAGE_COLOR</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_COLOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_COMMERCIAL">
+<code class="sig-name descname">USAGE_COMMERCIAL</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_COMMERCIAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_DISCONNECT">
+<code class="sig-name descname">USAGE_DISCONNECT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_DISCONNECT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_EMOTE_ONLY_OFF">
+<code class="sig-name descname">USAGE_EMOTE_ONLY_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_EMOTE_ONLY_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_EMOTE_ONLY_ON">
+<code class="sig-name descname">USAGE_EMOTE_ONLY_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_EMOTE_ONLY_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_FOLLOWERS_OFF">
+<code class="sig-name descname">USAGE_FOLLOWERS_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_FOLLOWERS_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_FOLLOWERS_ON">
+<code class="sig-name descname">USAGE_FOLLOWERS_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_FOLLOWERS_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_HELP">
+<code class="sig-name descname">USAGE_HELP</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_HELP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_HOST">
+<code class="sig-name descname">USAGE_HOST</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_HOST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_MARKER">
+<code class="sig-name descname">USAGE_MARKER</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_MARKER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_ME">
+<code class="sig-name descname">USAGE_ME</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_ME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_MOD">
+<code class="sig-name descname">USAGE_MOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_MOD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_MODS">
+<code class="sig-name descname">USAGE_MODS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_MODS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_R9K_OFF">
+<code class="sig-name descname">USAGE_R9K_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_R9K_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_R9K_ON">
+<code class="sig-name descname">USAGE_R9K_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_R9K_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_RAID">
+<code class="sig-name descname">USAGE_RAID</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_RAID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SLOW_OFF">
+<code class="sig-name descname">USAGE_SLOW_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SLOW_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SLOW_ON">
+<code class="sig-name descname">USAGE_SLOW_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SLOW_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SUBS_OFF">
+<code class="sig-name descname">USAGE_SUBS_OFF</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SUBS_OFF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SUBS_ON">
+<code class="sig-name descname">USAGE_SUBS_ON</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_SUBS_ON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_TIMEOUT">
+<code class="sig-name descname">USAGE_TIMEOUT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNBAN">
+<code class="sig-name descname">USAGE_UNBAN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNBAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNHOST">
+<code class="sig-name descname">USAGE_UNHOST</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNHOST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNMOD">
+<code class="sig-name descname">USAGE_UNMOD</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNMOD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for this event: WHISPER_INVALID_LOGIN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params func</dt>
+<dd class="field-odd"><p>takes a function pointer as  input argument</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="c1"># enter your code here for this event</span>
+    <span class="k">return</span>
+
+<span class="n">WHISPER_INVALID_LOGIN</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNRAID">
+<code class="sig-name descname">USAGE_UNRAID</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNRAID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for this event: WHISPER_INVALID_LOGIN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params func</dt>
+<dd class="field-odd"><p>takes a function pointer as  input argument</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="c1"># enter your code here for this event</span>
+    <span class="k">return</span>
+
+<span class="n">WHISPER_INVALID_LOGIN</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNTIMEOUT">
+<code class="sig-name descname">USAGE_UNTIMEOUT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.USAGE_UNTIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for this event: WHISPER_INVALID_LOGIN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params func</dt>
+<dd class="field-odd"><p>takes a function pointer as  input argument</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="c1"># enter your code here for this event</span>
+    <span class="k">return</span>
+
+<span class="n">WHISPER_INVALID_LOGIN</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_BANNED">
+<code class="sig-name descname">WHISPER_BANNED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_BANNED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for this event: WHISPER_INVALID_LOGIN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params func</dt>
+<dd class="field-odd"><p>takes a function pointer as  input argument</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="c1"># enter your code here for this event</span>
+    <span class="k">return</span>
+
+<span class="n">WHISPER_INVALID_LOGIN</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_BANNED_RECIPIENT">
+<code class="sig-name descname">WHISPER_BANNED_RECIPIENT</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_BANNED_RECIPIENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for this event: WHISPER_INVALID_LOGIN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params func</dt>
+<dd class="field-odd"><p>takes a function pointer as  input argument</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="c1"># enter your code here for this event</span>
+    <span class="k">return</span>
+
+<span class="n">WHISPER_INVALID_LOGIN</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_INVALID_ARGS">
+<code class="sig-name descname">WHISPER_INVALID_ARGS</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_INVALID_ARGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for this event: WHISPER_INVALID_LOGIN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params func</dt>
+<dd class="field-odd"><p>takes a function pointer as  input argument</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+    <span class="c1"># enter your code here for this event</span>
+    <span class="k">return</span>
+
+<span class="n">WHISPER_INVALID_LOGIN</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_INVALID_LOGIN">
+<code class="sig-name descname">WHISPER_INVALID_LOGIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent.WHISPER_INVALID_LOGIN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback function for this event: WHISPER_INVALID_LOGIN</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params func</dt>
+<dd class="field-odd"><p>takes a function pointer as  input argument</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myCallbackFunc</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+   <span class="c1"># enter your code here for this event</span>
+   <span class="k">return</span>
+
+<span class="n">WHISPER_INVALID_LOGIN</span><span class="p">(</span><span class="n">myCallbackFunc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>obj is normally of type <strong>message</strong></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent">
+<em class="property">class </em><code class="sig-name descname">ServerEvent</code><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.CONNECTED">
+<code class="sig-name descname">CONNECTED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.CONNECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.DISCONNECTED">
+<code class="sig-name descname">DISCONNECTED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.DISCONNECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.ERROR">
+<code class="sig-name descname">ERROR</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.JOIN">
+<code class="sig-name descname">JOIN</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.JOIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.LOGIN_UNSUCCESSFUL">
+<code class="sig-name descname">LOGIN_UNSUCCESSFUL</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.LOGIN_UNSUCCESSFUL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.MESSAGE">
+<code class="sig-name descname">MESSAGE</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.MESSAGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.NAMES">
+<code class="sig-name descname">NAMES</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.NAMES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.PART">
+<code class="sig-name descname">PART</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.PART" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.RECEIVED">
+<code class="sig-name descname">RECEIVED</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.RECEIVED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.TMI_TWITCH_TV">
+<code class="sig-name descname">TMI_TWITCH_TV</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.TMI_TWITCH_TV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.USERNAME">
+<code class="sig-name descname">USERNAME</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.USERNAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.ServerEvent.WHISPER">
+<code class="sig-name descname">WHISPER</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.ServerEvent.WHISPER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventConnected">
+<code class="sig-name descname">eventConnected</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventConnected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventDisconnected">
+<code class="sig-name descname">eventDisconnected</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventDisconnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>cccccc</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventError">
+<code class="sig-name descname">eventError</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventJoin">
+<code class="sig-name descname">eventJoin</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventJoin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventLoginError">
+<code class="sig-name descname">eventLoginError</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventLoginError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventMessage">
+<code class="sig-name descname">eventMessage</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventReconnect">
+<code class="sig-name descname">eventReconnect</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventReconnect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventSubsOff">
+<code class="sig-name descname">eventSubsOff</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventSubsOff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventSubsOn">
+<code class="sig-name descname">eventSubsOn</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventSubsOn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.On.eventWhisper">
+<code class="sig-name descname">eventWhisper</code><span class="sig-paren">(</span><em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.On.eventWhisper" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.connect">
+<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to IRC server</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.disconnect">
+<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>diconnnect</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.joinRooms">
+<code class="sig-name descname">joinRooms</code><span class="sig-paren">(</span><em class="sig-param">rooms</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.joinRooms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="TwitchChatInterface.TwitchChatInterface.send">
+<code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">message: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#TwitchChatInterface.TwitchChatInterface.send" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Twitch Chat Interface’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="lib/twitchMessageHandler/TwitchMessageHandler.html"
+                        title="next chapter">Twitch Message Handler</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/TwitchChatInterface.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib/twitchMessageHandler/TwitchMessageHandler.html" title="Twitch Message Handler"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Twitch Chat Interface’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Twitch Chat Interface .0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Eli Reid.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.2.
+    </div>
+  </body>
+</html>
