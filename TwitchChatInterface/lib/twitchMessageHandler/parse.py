@@ -1,4 +1,4 @@
-from lib.twitchMessageHandler.modals.message import message as Message
+from lib.twitchMessageHandler.modals.dataTypes import Message
 
 class parse(object):
     """
@@ -22,7 +22,6 @@ class parse(object):
 
             if "badges" in tags and type(tags["badges"]) == bool:
                 tags["badges-raw"] = None
-
             return tags
         except:
             pass
@@ -54,7 +53,8 @@ class parse(object):
         message: Message = Message()
         position: int = 0
         nextspace=0
-   
+        if type(data) != str:
+            raise TypeError("")
         if len(data)<1:
             return None
 

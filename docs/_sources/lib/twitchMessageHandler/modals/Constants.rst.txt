@@ -6,5 +6,5 @@ on the docs site  https://dev.twitch.tv/docs/irc"
 
 .. automodule::  lib.twitchMessageHandler.modals.const
     :members:
-    
+    :undoc-members:
       

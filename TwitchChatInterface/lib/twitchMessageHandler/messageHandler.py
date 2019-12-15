@@ -1,51 +1,51 @@
-import re 
+""" """
+import re
 from lib.events.eventHandler import eventHandler as _EVENT
 from lib.twitchMessageHandler.modals.const import   COMMANDS, MESSAGEIDS, SERVEREVENTS, EVENTS
-from lib.twitchMessageHandler.modals.message import channel
-from lib.twitchMessageHandler.parse import parse as _PARSER 
+from lib.twitchMessageHandler.modals.dataTypes import Message, Channel
 class MessageHandler():
     """
     Handles twitch message and emits events based on Commands and msgid tags
     Commands: CommandsEnum
     """
+
     @staticmethod
-    def messageHandler(data: str)->None: 
+    def messageHandler(data: str)->None:
         """               """
-        
         messageParts: list(str) = data.split("\r\n")
         for messagePart in messageParts:
-           
+
             try:
-                message = _PARSER.parse(messagePart)
+                message = _Parser.parse(messagePart)
             except Exception as err:
                 _EVENT.emit(MessageHandler, SERVEREVENTS.ERROR, err)
-                
+
             if message != None:
                 try:
-
                     # Populate message values
-                    message.channel: str = message.params[0] if len(message.params)>0 else None
-                    message.text: str = message.params[1] if len(message.params)>1 else None
+                    message.channel: str = message.params[0] if len(message.params) > 0 else None
+                    message.text: str = message.params[1] if len(message.params) > 1 else None
                     message.id: str = message.tags["msg-id"] if "msg-id" in message.tags else None
                     message.raw: str = messagePart
-                    message.username: str = message.tags["display-name"] if "display-name" in message.tags else None
+                    message.username: str = message.tags["display-name"] \
+                        if "display-name" in message.tags else None
 
                     # Parse badges and emotes
-                    message.tags = _PARSER.badges(_PARSER.emotes(message.tags))
-                    
+                    message.tags = _Parser.badges(_Parser.emotes(message.tags))
+
                 except Exception as err:
                     _EVENT.emit("Populate message values (MessageHandler):", SERVEREVENTS.ERROR, err)
 
                 # Transform IRCv3 Tags
-                try: 
+                try:
                     if message.tags:
-                        for key in message.tags: 
+                        for key in message.tags:
                             if key != "emote-sets" and key != "ban-duration" and key != "bits":
                                 if type(message.tags[key]) == bool:
                                     message.tags[key] = None
-                                elif message.tags[key]  == '1':
+                                elif message.tags[key] == '1':
                                     message.tags[key] = True
-                                elif message.tags[key]  == '0':
+                                elif message.tags[key] == '0':
                                     message.tags[key] = False
                                 elif type(message.tags[key]) == str:
                                     pass
@@ -60,39 +60,41 @@ class MessageHandler():
                         elif message.command == COMMANDS.PONG:
                             _EVENT.emit(MessageHandler, COMMANDS.PONG)
                         else:
-                            _EVENT.emit(MessageHandler, SERVEREVENTS.ERROR, "Could not parse message with no prefix:\n {}".format(message))
+                            _EVENT.emit(MessageHandler, SERVEREVENTS.ERROR,\
+                               "Could not parse message with no prefix:\n {}".format(message))
                     except Exception as err:
                         _EVENT.emit("Handle message no prifix (MessageHandler):", SERVEREVENTS.ERROR, err)
-                
+
                 # Handle message with prefix "tmi.twitch.tv"
                 elif message.prefix == SERVEREVENTS.TMI_TWITCH_TV:
-                     
+
                     # Handle command  bot Username
-                    if message.command == SERVEREVENTS.USERNAME:  
+                    if message.command == SERVEREVENTS.USERNAME:
                         username = message.params[0]
-                      
+
                     # Handle command CONNECTED (372
                     elif message.command == SERVEREVENTS.CONNECTED:  # Connected to server
                         _EVENT.emit(MessageHandler, SERVEREVENTS.CONNECTED)
-                      
+
                     # Handle command CLEARCHAT
                     elif message.command == COMMANDS.CLEARCHAT:
                         _EVENT.emit(MessageHandler, COMMANDS.CLEARCHAT, message)
-               
+
                     # Handle command CLEARMSG
                     elif message.command == COMMANDS.CLEARMSG:
                         message.username = message.tags["display-name"] or message.tags["login"]
                         message.id = message.tags["target-msg-id"] or None
                         _EVENT.emit(MessageHandler, COMMANDS.CLEARMSG, message)
-                      
+
                     # Handle command HOSTTARGET
                     elif message.command == COMMANDS.HOSTTARGET:
                         _EVENT.emit(MessageHandler, COMMANDS.HOSTTARGET, message)
-                                           
+
                     # Chatroom NOTICE check msgid tag
                     elif message.command == COMMANDS.NOTICE:
                         _EVENT.emit(MessageHandler, COMMANDS.NOTICE, message)
-                        if message.id == MESSAGEIDS.ALREADY_BANNED:  
+
+                        if message.id == MESSAGEIDS.ALREADY_BANNED:
                             _EVENT.emit(MessageHandler, MESSAGEIDS.ALREADY_BANNED, message)
 
                         elif message.id == MESSAGEIDS.ALREADY_EMOTE_ONLY_OFF:
@@ -229,7 +231,7 @@ class MessageHandler():
 
                         elif message.id == MESSAGEIDS.FOLLOWERS_ON:
                             _EVENT.emit(MessageHandler, MESSAGEIDS.FOLLOWERS_ON, message)
-             
+
                         elif message.id == MESSAGEIDS.FOLLOWERS_ONZERO:
                             _EVENT.emit(MessageHandler, MESSAGEIDS.FOLLOWERS_ONZERO, message)
 
@@ -520,57 +522,172 @@ class MessageHandler():
 
                         elif message.id == MESSAGEIDS.WHISPER_RESTRICTED_RECIPIENT:
                             _EVENT.emit(MessageHandler, MESSAGEIDS.WHISPER_RESTRICTED_RECIPIENT, message)
-
-
-
-                    
                         else:
                             if message.raw.find("Login unsuccessful") > 0 \
-                                    or message.raw.find("Login authentication failed")>0:
-                                _EVENT.emit(MessageHandler, SERVEREVENTS.LOGIN_UNSUCCESSFUL, "Login authentication failed")
+                                    or message.raw.find("Login authentication failed") > 0:
+                                _EVENT.emit(MessageHandler, SERVEREVENTS.LOGIN_UNSUCCESSFUL, \
+                                    "Login authentication failed")
 
                             elif message.raw.find("Error logging in") > 0 \
-                                    or message.raw.find("Improperly formatted auth")>0:
-                                _EVENT.emit(MessageHandler, SERVEREVENTS.LOGIN_UNSUCCESSFUL, "Login authentication failed")
+                                    or message.raw.find("Improperly formatted auth") > 0:
+                                _EVENT.emit(MessageHandler, SERVEREVENTS.LOGIN_UNSUCCESSFUL,\
+                                   "Login authentication failed")
 
-                            elif message.raw.find("Invalid NICK") > 0: 
-                                _EVENT.emit(MessageHandler, SERVEREVENTS.LOGIN_UNSUCCESSFUL, "Invalid User")   
+                            elif message.raw.find("Invalid NICK") > 0:
+                                _EVENT.emit(MessageHandler, SERVEREVENTS.LOGIN_UNSUCCESSFUL, "Invalid User")
 
                     # Handle command RECONNECT
                     elif message.command == COMMANDS.RECONNECT:
                         _EVENT.emit(MessageHandler, COMMANDS.RECONNECT)
-                     
-                    # Handle command ROOMSTATE    
+
+                    # Handle command ROOMSTATE
                     elif message.command == COMMANDS.ROOMSTATE:
                         _EVENT.emit(MessageHandler, COMMANDS.ROOMSTATE, message)
-                      
+
                     # Handle command USERNOTICE
                     elif message.command == COMMANDS.USERNOTICE:
                         _EVENT.emit(MessageHandler, COMMANDS.USERNOTICE, message)
-                      
+
                     # Handle command USERSTATE
                     elif message.command == COMMANDS.USERSTATE:
                         _EVENT.emit(MessageHandler, COMMANDS.USERSTATE, message)
-                      
-                    
 
                 # Handle message with prefix jtv
                 elif message.prefix == "jtv":
                     print(message.params)
-                
 
-                else: 
-                    if message.command == SERVEREVENTS.MESSAGE: 
+                else:
+                    if message.command == SERVEREVENTS.MESSAGE:
                         message.username: str = message.prefix[:message.prefix.find("!")]
                         _EVENT.emit(MessageHandler, SERVEREVENTS.MESSAGE, message)
-                        
-                    
+
                     elif message.command == SERVEREVENTS.NAMES:
                         _EVENT.emit(MessageHandler, SERVEREVENTS.NAMES, message)
                         pass
-                        
-                         
-        return 
+        return
+
+class _Parser(object):
+    """
+    parses incomming data from IRC chat
+   : Returns: parsed message type
+    """
+    @staticmethod
+    def badges(tags)->dict:
+        """parse badges dict"""
+        try:
+            if "badges" in tags and type(tags["badges"]) == str:
+                badges = {}
+                explode = tags["badges"].split(",")
+                for item in explode:
+                    parts = item.split("/")
+                    if parts[1] == None:
+                        return
+                    badges[parts[0]] = parts[1]
+                tags["badges-raw"] = tags["badges"]
+                tags["badges"] = badges
+
+            if "badges" in tags and type(tags["badges"]) == bool:
+                tags["badges-raw"] = None
+
+            return tags
+        except:
+            pass
+    @staticmethod
+    def emotes(tags)->list:
+        """ parse emotes to list"""
+        try:
+            if "emotes" in tags and type(tags["emotes"]) == str:
+                emoticons = tags["emotes"].split("/")
+                emotes = {}
+                for emoticon in emoticons:
+                    part = emoticon.split(":")
+                    if part[1] == None:
+                        return
+                    emotes[part[0]] = part[1].split(",")
+
+                tags["emotes-raw"] = tags["emotes"]
+                tags["emotes"] = emotes
+            if "emotes" in tags and type(tags["emotes"]) == bool:
+                tags["emotes-raw"] = None
+            return tags
+        except:
+            pass
 
 
+    @staticmethod
+    def parse(data: str)->Message:
+        if type(data) != str:
+            raise TypeError("_Parse.parse require input of type str")
 
+        message: Message = Message()
+        position: int = 0
+        nextspace = 0
+
+        if len(data) < 1:
+            return None
+
+        if data.startswith(chr(64)): #starts with @ symbol
+            nextspace = data.find(" ")
+
+            if nextspace == -1: #invalid message form
+                return None
+
+            tags = data[1:nextspace].split(";")
+
+            for tag in tags:
+                pair = tag.split("=")
+                message.tags[pair[0]] = pair[1] or True
+
+            position = nextspace + 1
+
+        while data[position] == chr(32):
+            postion += 1
+
+        if data[position] == chr(58):
+            nextspace = data.find(chr(32), position)
+
+            if nextspace == -1:
+                return None
+
+            message.prefix = data[position+1:nextspace]
+            position = nextspace + 1
+
+            while data[position] == chr(32):
+                postion += 1
+
+        nextspace = data.find(" ", position)
+
+        if nextspace == -1:
+            if len(data) > position:
+                #possible out of range err
+                message.command = data[position:]
+                return message
+
+            return None
+        message.command = data[position:nextspace]
+
+        position = nextspace + 1
+
+        while data[position] == chr(32):
+            postion += 1
+        dataLen = len(data)
+        while position < dataLen:
+            nextspace = data.find(" ", position)
+
+            if data[position] == chr(58):#check for ':'
+                message.params.append(data[position + 1:])
+                break
+
+            if nextspace != -1:
+                message.params.append(data[position:nextspace])
+                position = nextspace + 1
+
+                while data[position] == chr(32):
+                    postion += 1
+                continue
+
+            if nextspace == -1:
+                message.params.append(data[position:])
+                break
+
+        return message

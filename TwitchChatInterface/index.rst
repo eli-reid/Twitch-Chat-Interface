@@ -6,11 +6,10 @@ Welcome to Twitch Chat Interface's documentation!
 
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 4
     :caption: Contents:
 
     TwitchChatInterface.rst
-    lib/twitchMessageHandler/TwitchMessageHandler.rst
     lib/twitchMessageHandler/modals/Constants.rst
     lib/events/Eventhandler.rst
 

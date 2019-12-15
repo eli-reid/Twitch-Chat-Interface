@@ -1,22 +1,28 @@
-
+import types
 class eventHandler(object):
     """ 
     Event Handler 
-    author: Eli Reid
+    .. codeauthor:: Eli Reid <EliR@EliReid.com>
     """
     _events: dict = dict()
     class EVENTS(object):
         ERROR="ERROR"
  
     @classmethod
-    def emit(cls,sender: any, event: dict or str, obj: object = None, once: bool = False)->None:
+    def emit(cls,sender: any, event: str, obj: object = None, once: bool = False)->None:
         """
         eventHandler.emit - Event Emitter
         input:  
-            sender (obj) - string, function or class reponsible for event 
-            event (event) - registered name of event 
-            obj (any type) - any varible or object you want to pass to the self.on function
+        sender (obj) - string, function or class reponsible for event 
+        event (event) - registered name of event 
+        obj (any type) - any varible or object you want to pass to the self.on function
         """
+
+       
+        if type(event) != str:
+                raise TypeError("event should of type str " )
+        if type(once) != bool:
+                raise TypeError("you neeed to supply a callback function pointer ex: myCallback(sender, obj)" )
         try:
             if not cls._isRegistered(cls,event):
                 cls._register(cls,event)
@@ -31,9 +37,13 @@ class eventHandler(object):
         """
         Catches events and calls a stored list of functions
         Input:
-            event (str) -  name of event 
-            func(func) - function that is called when the event is emitted
+        event (str) -  name of event 
+        func(func) - function that is called when the event is emitted
         """
+
+
+        if type(func) != types.FunctionType and type(func) != types.MethodType:
+                raise TypeError("you neeed to supply a callback function pointer ex: myCallback(sender, obj)" )
         try:
             if not cls._isRegistered(cls,event):
                 cls._register(cls,event)
@@ -45,6 +55,8 @@ class eventHandler(object):
     @classmethod
     def removeEvent(cls,event: str)->None:
         """ Removes event from dictionary """
+        if type(event) != str:
+                raise TypeError("event should of type str " )
         try:
             if cls._isRegistered(cls,event):
                 del(cls._events[event])
@@ -55,11 +67,16 @@ class eventHandler(object):
     @classmethod
     def removeFunc(cls,event: str,func: any)->None:
         """ Removes function from events function list """
+        if type(event) != str:
+                raise TypeError("event should of type str " )
+        if not callable(func()):
+                raise TypeError("you neeed to supply a callback function pointer ex: myCallback(sender, obj)" )
         try:
             cls._events[event].remove(func)
             return
         except Exception as err:
             cls.emit(cls,cls.EVENTS.ERROR, err)
+
     @classmethod
     def onError(cls,func):
         eventHandler.on(eventHandler.EVENTS.ERROR,func)

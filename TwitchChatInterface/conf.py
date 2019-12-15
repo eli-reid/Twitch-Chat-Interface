@@ -14,8 +14,9 @@ import os
 import sys
 
 
-sys.path.insert(0, os.path.abspath('..\TwitchChatInterface'),)
-
+sys.path.insert(0, os.path.abspath('..\\TwitchChatInterface'),)
+sys.path.append(os.path.abspath('..\\'))
+sys.path.append(os.path.abspath('..\\docs'))
 # -- Project information -----------------------------------------------------
 
 project = 'Twitch Chat Interface'
@@ -23,7 +24,7 @@ copyright = '2019, Eli Reid'
 author = 'Eli Reid'
 
 # The full version, including alpha/beta/rc tags
-release = '.0.1'
+release = '.0.1 alpha'
 
 
 # -- General configuration ---------------------------------------------------

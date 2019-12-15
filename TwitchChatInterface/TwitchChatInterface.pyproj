@@ -3,12 +3,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>472ad081-0c14-4b28-83ca-d11c5a4f8e37</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>chat test.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>chat.py</StartupFile>
     <SearchPath>..\TwitchChatInterface</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Twitch Chat Interface</Name>
+    <Name>TwitchChatInterface</Name>
     <RootNamespace>TwitchChatInterface</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
@@ -16,7 +17,8 @@
     <UnitTestPattern>test*.py</UnitTestPattern>
     <UnitTestRootDirectory>.</UnitTestRootDirectory>
     <IsWindowsApplication>False</IsWindowsApplication>
-    <InterpreterId>Global|PythonCore|3.8-32</InterpreterId>
+    <InterpreterId>Global|PythonCore|3.7</InterpreterId>
+    <PublishUrl>/alpha</PublishUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,9 +29,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="chat test.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="chat.py" />
     <Compile Include="conf.py" />
     <Compile Include="lib\twitchMessageHandler\messageHandler.py">
       <SubType>Code</SubType>
@@ -37,12 +37,9 @@
     <Compile Include="lib\twitchMessageHandler\modals\const.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\twitchMessageHandler\modals\message.py" />
+    <Compile Include="lib\twitchMessageHandler\modals\dataTypes.py" />
     <Compile Include="lib\twitchMessageHandler\modals\__init__.py" />
     <Compile Include="lib\twitchMessageHandler\unit tests\messagHandlerTest.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="lib\twitchMessageHandler\parse.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="lib\twitchMessageHandler\__init__.py">
@@ -64,13 +61,13 @@
     <Folder Include="lib\events\unit tests\" />
   </ItemGroup>
   <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.7" />
     <InterpreterReference Include="Global|PythonCore|3.8-32" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.rst" />
     <Content Include="lib\events\Eventhandler.rst" />
     <Content Include="lib\twitchMessageHandler\modals\Constants.rst" />
-    <Content Include="lib\twitchMessageHandler\TwitchMessageHandler.rst" />
     <Content Include="TwitchChatInterface.rst" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

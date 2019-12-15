@@ -16,15 +16,15 @@ class EVENTS:
 
 class SERVEREVENTS:
     """
-        ===================================
-        SERVER EVENTS 
-        ===================================
-        .. class:: SERVEREVENTS
-        A constant class type immutable
+    ===================================
+    SERVER EVENTS 
+    ===================================
+    .. class:: SERVEREVENTS
+    A constant class type immutable
     
-        Raises:
-            ConstantError: if you try and set a value error raised
-            ConstantError: if you try and delete a value error raised
+    Raises:
+        ConstantError: if you try and set a value error raised
+        ConstantError: if you try and delete a value error raised
     """
 
     LOGIN_UNSUCCESSFUL = "LOGIN_UNSUCCESSFUL"
@@ -47,28 +47,25 @@ class SERVEREVENTS:
         raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
 class COMMANDS:
-    """[summary]
-    
-    Raises:
-        ConstantError: [description]
     """
-
+    :Raises: ConstantError: raise on trying to change
+    """
     PING = "PING"
     PONG = "PONG"
     HOSTTARGET = "HOSTTARGET"
     NOTICE = "NOTICE"
     RECONNECT = "RECONNECT"
-    def __new__(cls):
-        cls.GLOBALUSERSTATE = _GLOBALUSERSTATE()
-        cls.CLEARCHAT = _CLEARCHAT()
-        cls.CLEARMSG = _CLEARMSG()
-        cls.ROOMSTATE = _ROOMSTATE()
-        cls.USERNOTICE = _USERNOTICE()
-        cls.USERSTATE = _USERSTATE()
-        return cls
+    GLOBALUSERSTATE = "GLOBALUSERSTATE"
+    CLEARCHAT = "CLEARCHAT"
+    CLEARMSG = "CLEARMSG"
+    ROOMSTATE = "ROOMSTATE"
+    USERNOTICE = "USERNOTICE"
+    USERSTATE = "USERSTATE"
+
     def __setattr__(self,name,value):
         if hasattr(self,name):
             raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+
     def __delattr__(self,name):
         raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
@@ -222,130 +219,136 @@ class MESSAGEIDS:
     WHISPER_LIMIT_PER_SEC =  "whisper_limit_per_sec"
     WHISPER_RESTRICTED =  "whisper_restricted"
     WHISPER_RESTRICTED_RECIPIENT =  "whisper_restricted_recipient"
+
     def __setattr__(self,name,value):
         raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
 
     def __delattr__(self,name):
         raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
-# Delcare Constanse that have independent tags
-class _GLOBALUSERSTATE:
-    """[summary]
+# Delcare Constants that have independent tags
+class TAGS:
+
+    class _GLOBALUSERSTATE:
+        """[summary]
     
-    Raises:
-        ConstantError: [description]
-        ConstantError: [description]
+        Raises:
+            ConstantError: [description]
+            ConstantError: [description]
     
-    Returns:
-        [type] -- [description]
-    """
-    _value="GLOBALUSERSTATE"
-    def __eq__(self,value):
-        return self._value
-    def __str__(self):
-        return self._value
-    def __hash__(self):
-        return self._value.__hash__()
-    def __setattr__(self,name,value):
-        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
-    def __delattr__(self,name):
-        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
-    BADGEINFO  =  'badge-info'
-    BADGES  =  'badges'
-    COLOR  =  'color'
-    DISPLAYNAME  =  'display-name'
-    EMOTESETS  =  'emote-sets'
-    TURBO  =  'turbo'
-    USERID  =  'user-id'
-    USERTYPE  =  'user-type' 
+        Returns:
+            [type] -- [description]
+        """
+        _value="GLOBALUSERSTATE"
+        def __eq__(self,value):
+            return self._value
+        def __str__(self):
+            return self._value
+        def __hash__(self):
+            return self._value.__hash__()
+        def __setattr__(self,name,value):
+            raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+        def __delattr__(self,name):
+            raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+        BADGEINFO  =  'badge-info'
+        BADGES  =  'badges'
+        COLOR  =  'color'
+        DISPLAYNAME  =  'display-name'
+        EMOTESETS  =  'emote-sets'
+        TURBO  =  'turbo'
+        USERID  =  'user-id'
+        USERTYPE  =  'user-type' 
 
-class _CLEARCHAT:
-    """[summary]
+    class _CLEARCHAT:
+        """[summary]
     
-    Raises:
-        ConstantError: [description]
-        ConstantError: [description]
+        Raises:
+            ConstantError: [description]
+            ConstantError: [description]
     
-    Returns:
-        [type] -- [description]
-    """
-    _value="CLEARCHAT"
-    def __eq__(self,value):
-        return self._value
-    def __str__(self):
-        return self._value
-    def __hash__(self):
-        return self._value.__hash__()
-    def __setattr__(self,name,value):
-        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
-    def __delattr__(self,name):
-        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+        Returns:
+            [type] -- [description]
+        """
+        _value="CLEARCHAT"
+   
+        def __repr__(self):
+            return self._value
+        def __eq__(self,value):
+            return self._value
+        def __str__(self):
+            return self._value
+        def __hash__(self):
+            return self._value.__hash__()
+        def __setattr__(self,name,value):
+            raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+        def __delattr__(self,name):
+            raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
-class _CLEARMSG:
+    class _CLEARMSG:
 
-    _value="CLEARMSG"
-    def __eq__(self,value):
-        return self._value
-    def __str__(self):
-        return self._value
-    def __hash__(self):
-        return self._value.__hash__()
-    def __setattr__(self,name,value):
-        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
-    def __delattr__(self,name):
-        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+        _value="CLEARMSG"
+        def __eq__(self,value):
+            return self._value
+        def __str__(self):
+            return self._value
+        def __hash__(self):
+            return str(self._value.__hash__())
+        def __setattr__(self,name,value):
+            raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+        def __delattr__(self,name):
+            raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
-class _PRIVMSG:
-    _value="PRIVMSG"
-    def __eq__(self,value):
-        return self._value
-    def __str__(self):
-        return self._value
-    def __hash__(self):
-        return self._value.__hash__()
-    def __setattr__(self,name,value):
-        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
-    def __delattr__(self,name):
-        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+    class _PRIVMSG:
+        _value="PRIVMSG"
+        def __eq__(self,value):
+            return self._value
+        def __str__(self):
+            return self._value
+        def __hash__(self):
+            return self._value.__hash__()
+        def __setattr__(self,name,value):
+            raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+        def __delattr__(self,name):
+            raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
-class _ROOMSTATE:
-    _value="ROOMSTATE"
-    def __eq__(self,value):
-        return self._value
-    def __str__(self):
-        return self._value
-    def __hash__(self):
-        return self._value.__hash__()
-    def __setattr__(self,name,value):
-        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
-    def __delattr__(self,name):
-        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+    class _ROOMSTATE:
+        _value="ROOMSTATE"
+        def __eq__(self,value):
+            return self._value
+        def __str__(self):
+            return self._value
+        def __hash__(self):
+            return self._value.__hash__()
+        def __setattr__(self,name,value):
+            raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+        def __delattr__(self,name):
+            raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
-class _USERNOTICE:
-    _value="USERNOTICE"
-    def __eq__(self,value):
-        return self._value
-    def __str__(self):
-        return self._value
-    def __hash__(self):
-        return self._value.__hash__()
-    def __setattr__(self,name,value):
-        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
-    def __delattr__(self,name):
-        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+    class _USERNOTICE:
+        _value="USERNOTICE"
+        def __eq__(self,value):
+            return self._value
+        def __str__(self):
+            return self._value
+        def __hash__(self):
+            return self._value.__hash__()
+        def __setattr__(self,name,value):
+            raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+        def __delattr__(self,name):
+            raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
-class _USERSTATE:
-    _value="USERSTATE"
-    def __eq__(self,value):
-        return self._value
-    def __str__(self):
-        return self._value
-    def __hash__(self):
-        return self._value.__hash__()
-    def __setattr__(self,name,value):
-        raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
-    def __delattr__(self,name):
-        raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
+    class _USERSTATE:
+        _value="USERSTATE"
+        def __eq__(self,value):
+            return self._value
+        def __str__(self):
+            return self._value
+        def __hash__(self):
+            return self._value.__hash__()
+        def __setattr__(self,name,value):
+            raise ConstantError("Can't set {}={}: Constants are not mutable!".format(name,value))
+        def __delattr__(self,name):
+            raise ConstantError("Can't delete {}: Constants are not mutable!".format(name))
 
 # Create an importable instance of all constants 
 EVENTS: EVENTS = EVENTS()
