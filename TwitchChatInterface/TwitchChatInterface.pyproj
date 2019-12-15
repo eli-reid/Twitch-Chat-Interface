@@ -67,7 +67,7 @@
   <ItemGroup>
     <Content Include="index.rst" />
     <Content Include="lib\events\Eventhandler.rst" />
-    <Content Include="lib\twitchMessageHandler\modals\Constants.rst" />
+    <Content Include="Constants.rst" />
     <Content Include="TwitchChatInterface.rst" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

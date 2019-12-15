@@ -1,7 +1,7 @@
 """ """
 import re
 from lib.events.eventHandler import eventHandler as _EVENT
-from lib.twitchMessageHandler.modals.const import   COMMANDS, MESSAGEIDS, SERVEREVENTS, EVENTS
+from lib.twitchMessageHandler.modals.const import   COMMANDS, MESSAGEIDS, SERVEREVENTS, EVENTS, TAGS
 from lib.twitchMessageHandler.modals.dataTypes import Message, Channel
 class MessageHandler():
     """

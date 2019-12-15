@@ -339,3 +339,8 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Twitch Chat Interface/chat test.py
+/build/lib/TwitchChatInterface/chat.py
+/TwitchChatInterface_pkg_edog0049a.egg-info/top_level.txt
+/TwitchChatInterface_pkg_edog0049a.egg-info/PKG-INFO
+/TwitchChatInterface_pkg_edog0049a.egg-info
+/dist

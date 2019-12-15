@@ -3,9 +3,11 @@
 
 Twitch Chat Interface
 =====================
+.. automodule:: TwitchChatInterface
+
 .. codeauthor:: Eli Reid <EliR@EliReid.com>
 
-.. autoclass::  TwitchChatInterface.TwitchChatInterface
+.. autoclass:: TwitchChatInterface
     :members: connect, disconnect, send, joinRooms
 
 
@@ -28,25 +30,25 @@ Register a callback function for twitch irc events
 
 TwitchChatInterface.on
 -----------------------
-.. autoclass::  TwitchChatInterface.TwitchChatInterface.On
+.. autoclass::  TwitchChatInterface.On
     :members: eventConnected, eventDisconnected, eventMessage, eventJoin, eventError, eventLoginError, eventWhisper, eventConnected, eventReconnect, eventSubsOff, eventSubsOn
     :undoc-members:
 
 on.CommandEvent
 ^^^^^^^^^^^^^^^
-.. autoclass::  TwitchChatInterface.TwitchChatInterface.On.CommandEvent
+.. autoclass:: TwitchChatInterface.On.CommandEvent
     :members: 
     :undoc-members:
 
 on.ServerEvent
 ^^^^^^^^^^^^^^ 
-.. autoclass::  TwitchChatInterface.TwitchChatInterface.On.ServerEvent
+.. autoclass:: TwitchChatInterface.On.ServerEvent
     :members: 
     :undoc-members:
 
 on.MsgIdEvent
 ^^^^^^^^^^^^^^ 
-.. autoclass::  TwitchChatInterface.TwitchChatInterface.On.MsgIdEvent
+.. autoclass:: TwitchChatInterface.On.MsgIdEvent
     :members: 
     :undoc-members:
 
