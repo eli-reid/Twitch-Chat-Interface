@@ -1,8 +1,8 @@
 """ """
 import re
-from lib.events.eventHandler import eventHandler as _EVENT
-from lib.twitchMessageHandler.modals.const import   COMMANDS, MESSAGEIDS, SERVEREVENTS, EVENTS, TAGS
-from lib.twitchMessageHandler.modals.dataTypes import Message, Channel
+from eventHandler import eventHandler as _EVENT
+from const import   COMMANDS, MESSAGEIDS, SERVEREVENTS, EVENTS, TAGS
+from dataTypes import Message, Channel
 class MessageHandler():
     """
     Handles twitch message and emits events based on Commands and msgid tags

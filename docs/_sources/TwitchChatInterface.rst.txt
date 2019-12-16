@@ -30,25 +30,25 @@ Register a callback function for twitch irc events
 
 TwitchChatInterface.on
 -----------------------
-.. autoclass::  TwitchChatInterface.On
+.. autoclass::  TwitchChatInterface.on
     :members: eventConnected, eventDisconnected, eventMessage, eventJoin, eventError, eventLoginError, eventWhisper, eventConnected, eventReconnect, eventSubsOff, eventSubsOn
     :undoc-members:
 
 on.CommandEvent
 ^^^^^^^^^^^^^^^
-.. autoclass:: TwitchChatInterface.On.CommandEvent
+.. autoclass:: TwitchChatInterface.on.CommandEvent
     :members: 
     :undoc-members:
 
 on.ServerEvent
 ^^^^^^^^^^^^^^ 
-.. autoclass:: TwitchChatInterface.On.ServerEvent
+.. autoclass:: TwitchChatInterface.on.ServerEvent
     :members: 
     :undoc-members:
 
 on.MsgIdEvent
 ^^^^^^^^^^^^^^ 
-.. autoclass:: TwitchChatInterface.On.MsgIdEvent
+.. autoclass:: TwitchChatInterface.on.MsgIdEvent
     :members: 
     :undoc-members:
 

@@ -1,7 +1,7 @@
 
 Event Handler 
 =================================================
-.. automodule::  lib.events.eventHandler
+.. automodule::  eventHandler
     :members:
 
 

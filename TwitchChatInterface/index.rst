@@ -1,5 +1,3 @@
- 
-
 Welcome to Twitch Chat Interface's documentation!
 =================================================
 
@@ -8,10 +6,9 @@ Welcome to Twitch Chat Interface's documentation!
     :titlesonly:
     :caption: Contents:
 
-
     TwitchChatInterface.rst
     Constants.rst
-    lib/events/Eventhandler.rst
+    dataTypes.rst
 
 Indices and tables
 ==================

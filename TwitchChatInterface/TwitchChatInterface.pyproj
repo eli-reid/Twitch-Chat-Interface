@@ -31,42 +31,26 @@
   <ItemGroup>
     <Compile Include="chat.py" />
     <Compile Include="conf.py" />
-    <Compile Include="lib\twitchMessageHandler\messageHandler.py">
+    <Compile Include="messageHandler.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\twitchMessageHandler\modals\const.py">
+    <Compile Include="const.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\twitchMessageHandler\modals\dataTypes.py" />
-    <Compile Include="lib\twitchMessageHandler\modals\__init__.py" />
-    <Compile Include="lib\twitchMessageHandler\unit tests\messagHandlerTest.py">
+    <Compile Include="dataTypes.py" />
+    <Compile Include="eventHandler.py" />
+    <Compile Include="onEvent.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="lib\twitchMessageHandler\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="lib\__init__.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="lib\events\eventHandler.py" />
-    <Compile Include="lib\events\__init__.py" />
     <Compile Include="TwitchChatInterface.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="lib\" />
-    <Folder Include="lib\twitchMessageHandler\" />
-    <Folder Include="lib\twitchMessageHandler\modals\" />
-    <Folder Include="lib\twitchMessageHandler\unit tests\" />
-    <Folder Include="lib\events\" />
-    <Folder Include="lib\events\unit tests\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.7" />
     <InterpreterReference Include="Global|PythonCore|3.8-32" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dataTypes.rst" />
     <Content Include="index.rst" />
-    <Content Include="lib\events\Eventhandler.rst" />
     <Content Include="Constants.rst" />
     <Content Include="TwitchChatInterface.rst" />
   </ItemGroup>
