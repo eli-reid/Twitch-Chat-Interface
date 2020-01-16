@@ -5,9 +5,10 @@
     <ProjectGuid>472ad081-0c14-4b28-83ca-d11c5a4f8e37</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>chat.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>..\TwitchChatInterface</SearchPath>
-    <WorkingDirectory>.</WorkingDirectory>
+    <WorkingDirectory>..\TwitchChatInterface</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>TwitchChatInterface</Name>
     <RootNamespace>TwitchChatInterface</RootNamespace>
@@ -30,16 +31,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="chat.py" />
-    <Compile Include="conf.py" />
-    <Compile Include="messageHandler.py">
+    <Compile Include="rst\conf.py" />
+    <Compile Include="EventHandler.py" />
+    <Compile Include="IrcController.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="const.py">
+    <Compile Include="MessageHandler.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="dataTypes.py" />
-    <Compile Include="eventHandler.py" />
-    <Compile Include="onEvent.py">
+    <Compile Include="tests\test_eventHandler.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TwitchChatInterface.py" />
@@ -49,10 +49,13 @@
     <InterpreterReference Include="Global|PythonCore|3.8-32" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dataTypes.rst" />
-    <Content Include="index.rst" />
-    <Content Include="Constants.rst" />
-    <Content Include="TwitchChatInterface.rst" />
+    <Content Include="rst\EventHandler.rst" />
+    <Content Include="rst\index.rst" />
+    <Content Include="rst\TwitchChatInterface.rst" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="rst\" />
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

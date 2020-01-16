@@ -1,13 +1,13 @@
 import const as c
+try:
+    x=""
+    print(x[12])
+except Exception as err:
+    l=int((len(str(err))-11) /2) + 20 
+    endstars = l - 1 if len(str(err))%2 == 0 else l 
 
-for cl in c.__dict__:
-    if not cl.startswith("_"):
-        title=f"TwichChatInterface.{cl}"
-        print(title, "\n", \
-                "-" * len(title),"\n\n", \
-                f".. autoclass:: lib.twitchMessageHandler.modals.const.{cl}\n")
-        for key in c.__dict__[cl].__class__.__dict__:
-            if not key.startswith("_"):
-                att=f"{key}" 
-                print (f".. autoattribute:: lib.twitchMessageHandler.modals.const.{cl}.{key}\n")
+    print("\n\n",f"{'*' * l} PARSE ERROR {'*' * endstars}\n",\
+                    f"{'*'*20} {err} {'*'*20} ","\n", \
+                     f"{'*' * l} PARSE ERROR {'*' * endstars}\n\n")
+
 
