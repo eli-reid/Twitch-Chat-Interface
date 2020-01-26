@@ -44,7 +44,12 @@ class UserNotice:
     user_type: str = field(default="")
 
 def IDEHelper(cls):
-    """ .. function:: IDEHelper"""
+    """IDEHelper - helps with constants that have subtags to act 
+                    as strings and still hav sub items
+    
+    :return: cls
+    :rtype: class
+    """
     def __eq__(self, value):
         return self._VALUE == value
     def  __hash__(self):
@@ -58,9 +63,11 @@ def IDEHelper(cls):
 
 @dataclass(frozen=True)
 class _MESSAGEIDS:
-    """
+    """Message id constants 
+
 
     """
+
     ALREADY_BANNED: str = "already_banned"
     ALREADY_EMOTE_ONLY_OFF: str = "already_emote_only_off"
     ALREADY_EMOTE_ONLY_ON: str = "already_emote_only_on"
@@ -395,7 +402,7 @@ class MessageHandler():
                 for key in message.tags:
                     if key not in ("emote-sets", "ban-duration", "bits"):
                         if isinstance(message.tags[key], bool):
-                            message.tags[key] = None
+                           message.tags[key] = None
                         elif message.tags[key] in ('0', '1'):
                             message.tags[key] = bool(int(message.tags[key]))
         except Exception as error:
