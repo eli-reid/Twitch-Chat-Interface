@@ -2,30 +2,27 @@ from dataclasses import dataclass, field
 from typing import Dict, List
 
 @dataclass
-class RoomState():
+class RoomState(type):
     """ doc """
-    def __init__(self):
-        self.emote_only = 0
-        self.followers_only = 0
-        self.y = 0
-        self.r9k = 0
-        self.slow = 0
-        self.subs_only = 0
+    emote_only: int  = field(default=0)
+    rituals: int = field(default=0)
+    followers_only: int  = field(default=0)
+    r9k: int = field(default=0)
+    slow: int  = field(default=0)
+    subs_only: int = field(default=0)
 
 @dataclass
 class Channel:
     """ doc """
-    name: str = field(default="")
+    roomID: str = field(default="")
     mods: list = field(default_factory=list)
     roomState: RoomState = RoomState
-    def __str__(self):
-        return self.name
 
 @dataclass
 class Message:
     """ message  """
     raw: str = ""
-    channel: Channel = field(default_factory=Channel)
+    channel: str = field(default="")
     id: str = field(default="")
     prefix: str = field(default="")
     command: str = field(default="")
@@ -35,296 +32,355 @@ class Message:
     tags: Dict = field(default_factory=dict)
 
 @dataclass
-class UserNotice():
+class UserNotice:
     """ doc """
-    def __init__(self):
-        self.badge_info = ""
-        self.badges = ""
-        self.color = ""
-        self.display_name = ""
-        self.emote_sets = ""
-        self.turbo = ""
-        self.user_id = ""
-        self.user_type = ""
+    badge_info: str = field(default="")
+    badges: Dict = field(default_factory=dict)
+    color: str = field(default="")
+    display_name: str = field(default="")
+    emote_sets: str = field(default="")
+    turbo: str = field(default="")
+    user_id: str = field(default="")
+    user_type: str = field(default="")
 
 def IDEHelper(cls):
-
+    """ .. function:: IDEHelper"""
     def __eq__(self, value):
-            return self._value == value
+        return self._VALUE == value
     def  __hash__(self):
-        return hash(self._value)
+        return hash(self._VALUE)
     def  __str__(self):
-        return self._value
+        return self._VALUE
     cls.__eq__ =__eq__
     cls.__hash__ =__hash__
     cls.__str__ =__str__
     return cls
 
-@IDEHelper
-@dataclass(frozen=True)
-class _ROOMSTATE(str):
-    """ doc """
-    _value = "ROOMSTATE"
-    EMOTE_ONLY = "emote-only"
-    FOLLOWERS_ONLY = "followers-only"
-    R9K = "r9k"
-    SLOW = "slow"
-    SUBS_ONLY = "subs-only"
-
 @dataclass(frozen=True)
 class _MESSAGEIDS:
-    """[summary]
-
-
-    Raises:
-        ConstantError: [description]
-        ConstantError: [description]
     """
-    ALREADY_BANNED = "already_banned"
-    ALREADY_EMOTE_ONLY_OFF = "already_emote_only_off"
-    ALREADY_EMOTE_ONLY_ON = "already_emote_only_on"
-    ALREADY_R9K_OFF = "already_r9k_off"
-    ALREADY_R9K_ON = "already_r9k_on"
-    ALREADY_SUBS_OFF = "already_subs_off"
-    ALREADY_SUBS_ON = "already_subs_on"
-    BAD_BAN_ADMIN = "bad_ban_admin"
-    BAD_BAN_ANON = "bad_ban_anon"
-    BAD_BAN_BROADCASTER = "bad_ban_broadcaster"
-    BAD_BAN_GLOBAL_MOD = "bad_ban_global_mod"
-    BAD_BAN_MOD = "bad_ban_mod"
-    BAD_BAN_SELF = "bad_ban_self"
-    BAD_BAN_STAFF = "bad_ban_staff"
-    BAD_COMMERCIAL_ERROR = "bad_commercial_error"
-    BAD_DELETE_MESSAGE_BROADCASTER = "bad_delete_message_broadcaster"
-    BAD_DELETE_MESSAGE_MOD = "bad_delete_message_mod"
-    BAD_HOST_ERROR = "bad_host_error"
-    BAD_HOST_HOSTING = "bad_host_hosting"
-    BAD_HOST_RATE_EXCEEDED = "bad_host_rate_exceeded"
-    BAD_HOST_REJECTED = "bad_host_rejected"
-    BAD_HOST_SELF = "bad_host_self"
-    BAD_MARKER_CLIENT = "bad_marker_client"
-    BAD_MOD_BANNED = "bad_mod_banned"
-    BAD_MOD_MOD = "bad_mod_mod"
-    BAD_SLOW_DURATION = "bad_slow_duration"
-    BAD_TIMEOUT_ADMIN = "bad_timeout_admin"
-    BAD_TIMEOUT_ANON = "bad_timeout_anon"
-    BAD_TIMEOUT_BROADCASTER = "bad_timeout_broadcaster"
-    BAD_TIMEOUT_DURATION = "bad_timeout_duration"
-    BAD_TIMEOUT_GLOBAL_MOD = "bad_timeout_global_mod"
-    BAD_TIMEOUT_MOD = "bad_timeout_mod"
-    BAD_TIMEOUT_SELF = "bad_timeout_self"
-    BAD_TIMEOUT_STAFF = "bad_timeout_staff"
-    BAD_UNBAN_NO_BAN = "bad_unban_no_ban"
-    BAD_UNHOST_ERROR = "bad_unhost_error"
-    BAD_UNMOD_MOD = "bad_unmod_mod"
-    BAN_SUCCESS = "ban_success"
-    CMDS_AVAILABLE = "cmds_available"
-    COLOR_CHANGED = "color_changed"
-    COMMERCIAL_SUCCESS = "commercial_success"
-    DELETE_MESSAGE_SUCCESS = "delete_message_success"
-    EMOTE_ONLY_OFF = "emote_only_off"
-    EMOTE_ONLY_ON = "emote_only_on"
-    FOLLOWERS_OFF = "followers_off"
-    FOLLOWERS_ON = "followers_on"
-    FOLLOWERS_ONZERO = "followers_onzero"
-    HOST_OFF = "host_off"
-    HOST_ON = "host_on"
-    HOST_SUCCESS = "host_success"
-    HOST_SUCCESS_VIEWERS = "host_success_viewers"
-    HOST_TARGET_WENT_OFFLINE = "host_target_went_offline"
-    HOSTS_REMAINING = "hosts_remaining"
-    INVALID_USER = "invalid_user"
-    MOD_SUCCESS = "mod_success"
-    MSG_BANNED = "msg_banned"
-    MSG_BAD_CHARACTERS = "msg_bad_characters"
-    MSG_CHANNEL_BLOCKED = "msg_channel_blocked"
-    MSG_CHANNEL_SUSPENDED = "msg_channel_suspended"
-    MSG_DUPLICATE = "msg_duplicate"
-    MSG_EMOTEONLY = "msg_emoteonly"
-    MSG_FACEBOOK = "msg_facebook"
-    MSG_FOLLOWERSONLY = "msg_followersonly"
-    MSG_FOLLOWERSONLY_FOLLOWED = "msg_followersonly_followed"
-    MSG_FOLLOWERSONLY_ZERO = "msg_followersonly_zero"
-    MSG_R9K = "msg_r9k"
-    MSG_RATELIMIT = "msg_ratelimit"
-    MSG_REJECTED = "msg_rejected"
-    MSG_REJECTED_MANDATORY = "msg_rejected_mandatory"
-    MSG_ROOM_NOT_FOUND = "msg_room_not_found"
-    MSG_SLOWMODE = "msg_slowmode"
-    MSG_SUBSONLY = "msg_subsonly"
-    MSG_SUSPENDED = "msg_suspended"
-    MSG_TIMEDOUT = "msg_timedout"
-    MSG_VERIFIED_EMAIL = "msg_verified_email"
-    NO_HELP = "no_help"
-    NO_MODS = "no_mods"
-    NOT_HOSTING = "not_hosting"
-    NO_PERMISSION = "no_permission"
-    R9K_OFF = "r9k_off"
-    R9K_ON = "r9k_on"
-    RAID_ERROR_ALREADY_RAIDING = "raid_error_already_raiding"
-    RAID_ERROR_FORBIDDEN = "raid_error_forbidden"
-    RAID_ERROR_SELF = "raid_error_self"
-    RAID_ERROR_TOO_MANY_VIEWERS = "raid_error_too_many_viewers"
-    RAID_ERROR_UNEXPECTED = "raid_error_unexpected"
-    RAID_NOTICE_MATURE = "raid_notice_mature"
-    RAID_NOTICE_RESTRICTED_CHAT = "raid_notice_restricted_chat"
-    ROOM_MODS = "room_mods"
-    SLOW_OFF = "slow_off"
-    SLOW_ON = "slow_on"
-    SUBS_OFF = "subs_off"
-    SUBS_ON = "subs_on"
-    TIMEOUT_NO_TIMEOUT = "timeout_no_timeout"
-    TIMEOUT_SUCCESS = "timeout_success"
-    TOS_BAN = "tos_ban"
-    TURBO_ONLY_COLOR = "turbo_only_color"
-    UNBAN_SUCCESS = "unban_success"
-    UNMOD_SUCCESS = "unmod_success"
-    UNRAID_ERROR_NO_ACTIVE_RAID = "unraid_error_no_active_raid"
-    UNRAID_ERROR_UNEXPECTED = "unraid_error_unexpected"
-    UNRAID_SUCCESS = "unraid_success"
-    UNRECOGNIZED_CMD = "unrecognized_cmd"
-    UNSUPPORTED_CHATROOMS_CMD = "unsupported_chatrooms_cmd"
-    UNTIMEOUT_BANNED = "untimeout_banned"
-    UNTIMEOUT_SUCCESS = "untimeout_success"
-    USAGE_BAN = "usage_ban"
-    USAGE_CLEAR = "usage_clear"
-    USAGE_COLOR = "usage_color"
-    USAGE_COMMERCIAL = "usage_commercial"
-    USAGE_DISCONNECT = "usage_disconnect"
-    USAGE_EMOTE_ONLY_OFF = "usage_emote_only_off"
-    USAGE_EMOTE_ONLY_ON = "usage_emote_only_on"
-    USAGE_FOLLOWERS_OFF = "usage_followers_off"
-    USAGE_FOLLOWERS_ON = "usage_followers_on"
-    USAGE_HELP = "usage_help"
-    USAGE_HOST = "usage_host"
-    USAGE_MARKER = "usage_marker"
-    USAGE_ME = "usage_me"
-    USAGE_MOD = "usage_mod"
-    USAGE_MODS = "usage_mods"
-    USAGE_R9K_OFF = "usage_r9k_off"
-    USAGE_R9K_ON = "usage_r9k_on"
-    USAGE_RAID = "usage_raid"
-    USAGE_SLOW_OFF = "usage_slow_off"
-    USAGE_SLOW_ON = "usage_slow_on"
-    USAGE_SUBS_OFF = "usage_subs_off"
-    USAGE_SUBS_ON = "usage_subs_on"
-    USAGE_TIMEOUT = "usage_timeout"
-    USAGE_UNBAN = "usage_unban"
-    USAGE_UNHOST = "usage_unhost"
-    USAGE_UNMOD = "usage_unmod"
-    USAGE_UNRAID = "usage_unraid"
-    USAGE_UNTIMEOUT = "usage_untimeout"
-    WHISPER_BANNED = "whisper_banned"
-    WHISPER_BANNED_RECIPIENT = "whisper_banned_recipient"
-    WHISPER_INVALID_ARGS = "whisper_invalid_args"
-    WHISPER_INVALID_LOGIN = "whisper_invalid_login"
-    WHISPER_INVALID_SELF = "whisper_invalid_self"
-    WHISPER_LIMIT_PER_MIN = "whisper_limit_per_min"
-    WHISPER_LIMIT_PER_SEC = "whisper_limit_per_sec"
-    WHISPER_RESTRICTED = "whisper_restricted"
-    WHISPER_RESTRICTED_RECIPIENT = "whisper_restricted_recipient"
 
-@IDEHelper   
-@dataclass(frozen=True)
-class _GLOBALUSERSTATE(str):
-    """g
     """
-    _value = "GLOBALUSERSTATE"
-    BADGEINFO = 'badge-info'
-    BADGES = 'badges'
-    COLOR = 'color'
-    DISPLAYNAME = 'display-name'
-    EMOTESETS = 'emote-sets'
-    TURBO = 'turbo'
-    USERID = 'user-id'
-    USERTYPE = 'user-type'
+    ALREADY_BANNED: str = "already_banned"
+    ALREADY_EMOTE_ONLY_OFF: str = "already_emote_only_off"
+    ALREADY_EMOTE_ONLY_ON: str = "already_emote_only_on"
+    ALREADY_R9K_OFF: str = "already_r9k_off"
+    ALREADY_R9K_ON: str = "already_r9k_on"
+    ALREADY_SUBS_OFF: str = "already_subs_off"
+    ALREADY_SUBS_ON: str = "already_subs_on"
+    BAD_BAN_ADMIN: str = "bad_ban_admin"
+    BAD_BAN_ANON: str = "bad_ban_anon"
+    BAD_BAN_BROADCASTER: str = "bad_ban_broadcaster"
+    BAD_BAN_GLOBAL_MOD: str = "bad_ban_global_mod"
+    BAD_BAN_MOD: str = "bad_ban_mod"
+    BAD_BAN_SELF: str = "bad_ban_self"
+    BAD_BAN_STAFF: str = "bad_ban_staff"
+    BAD_COMMERCIAL_ERROR: str = "bad_commercial_error"
+    BAD_DELETE_MESSAGE_BROADCASTER: str = "bad_delete_message_broadcaster"
+    BAD_DELETE_MESSAGE_MOD: str = "bad_delete_message_mod"
+    BAD_HOST_ERROR: str = "bad_host_error"
+    BAD_HOST_HOSTING: str = "bad_host_hosting"
+    BAD_HOST_RATE_EXCEEDED: str = "bad_host_rate_exceeded"
+    BAD_HOST_REJECTED: str = "bad_host_rejected"
+    BAD_HOST_SELF: str = "bad_host_self"
+    BAD_MARKER_CLIENT: str = "bad_marker_client"
+    BAD_MOD_BANNED: str = "bad_mod_banned"
+    BAD_MOD_MOD: str = "bad_mod_mod"
+    BAD_SLOW_DURATION: str = "bad_slow_duration"
+    BAD_TIMEOUT_ADMIN: str = "bad_timeout_admin"
+    BAD_TIMEOUT_ANON: str = "bad_timeout_anon"
+    BAD_TIMEOUT_BROADCASTER: str = "bad_timeout_broadcaster"
+    BAD_TIMEOUT_DURATION: str = "bad_timeout_duration"
+    BAD_TIMEOUT_GLOBAL_MOD: str = "bad_timeout_global_mod"
+    BAD_TIMEOUT_MOD: str = "bad_timeout_mod"
+    BAD_TIMEOUT_SELF: str = "bad_timeout_self"
+    BAD_TIMEOUT_STAFF: str = "bad_timeout_staff"
+    BAD_UNBAN_NO_BAN: str = "bad_unban_no_ban"
+    BAD_UNHOST_ERROR: str = "bad_unhost_error"
+    BAD_UNMOD_MOD: str = "bad_unmod_mod"
+    BAN_SUCCESS: str = "ban_success"
+    CMDS_AVAILABLE: str = "cmds_available"
+    COLOR_CHANGED: str = "color_changed"
+    COMMERCIAL_SUCCESS: str = "commercial_success"
+    DELETE_MESSAGE_SUCCESS: str = "delete_message_success"
+    EMOTE_ONLY_OFF: str = "emote_only_off"
+    EMOTE_ONLY_ON: str = "emote_only_on"
+    FOLLOWERS_OFF: str = "followers_off"
+    FOLLOWERS_ON: str = "followers_on"
+    FOLLOWERS_ONZERO: str = "followers_onzero"
+    HOST_OFF: str = "host_off"
+    HOST_ON: str = "host_on"
+    HOST_SUCCESS: str = "host_success"
+    HOST_SUCCESS_VIEWERS: str = "host_success_viewers"
+    HOST_TARGET_WENT_OFFLINE: str = "host_target_went_offline"
+    HOSTS_REMAINING: str = "hosts_remaining"
+    INVALID_USER: str = "invalid_user"
+    MOD_SUCCESS: str = "mod_success"
+    MSG_BANNED: str = "msg_banned"
+    MSG_BAD_CHARACTERS: str = "msg_bad_characters"
+    MSG_CHANNEL_BLOCKED: str = "msg_channel_blocked"
+    MSG_CHANNEL_SUSPENDED: str = "msg_channel_suspended"
+    MSG_DUPLICATE: str = "msg_duplicate"
+    MSG_EMOTEONLY: str = "msg_emoteonly"
+    MSG_FACEBOOK: str = "msg_facebook"
+    MSG_FOLLOWERSONLY: str = "msg_followersonly"
+    MSG_FOLLOWERSONLY_FOLLOWED: str = "msg_followersonly_followed"
+    MSG_FOLLOWERSONLY_ZERO: str = "msg_followersonly_zero"
+    MSG_R9K: str = "msg_r9k"
+    MSG_RATELIMIT: str = "msg_ratelimit"
+    MSG_REJECTED: str = "msg_rejected"
+    MSG_REJECTED_MANDATORY: str = "msg_rejected_mandatory"
+    MSG_ROOM_NOT_FOUND: str = "msg_room_not_found"
+    MSG_SLOWMODE: str = "msg_slowmode"
+    MSG_SUBSONLY: str = "msg_subsonly"
+    MSG_SUSPENDED: str = "msg_suspended"
+    MSG_TIMEDOUT: str = "msg_timedout"
+    MSG_VERIFIED_EMAIL: str = "msg_verified_email"
+    NO_HELP: str = "no_help"
+    NO_MODS: str = "no_mods"
+    NOT_HOSTING: str = "not_hosting"
+    NO_PERMISSION: str = "no_permission"
+    R9K_OFF: str = "r9k_off"
+    R9K_ON: str = "r9k_on"
+    RAID_ERROR_ALREADY_RAIDING: str = "raid_error_already_raiding"
+    RAID_ERROR_FORBIDDEN: str = "raid_error_forbidden"
+    RAID_ERROR_SELF: str = "raid_error_self"
+    RAID_ERROR_TOO_MANY_VIEWERS: str = "raid_error_too_many_viewers"
+    RAID_ERROR_UNEXPECTED: str = "raid_error_unexpected"
+    RAID_NOTICE_MATURE: str = "raid_notice_mature"
+    RAID_NOTICE_RESTRICTED_CHAT: str = "raid_notice_restricted_chat"
+    ROOM_MODS: str = "room_mods"
+    SLOW_OFF: str = "slow_off"
+    SLOW_ON: str = "slow_on"
+    SUBS_OFF: str = "subs_off"
+    SUBS_ON: str = "subs_on"
+    TIMEOUT_NO_TIMEOUT: str = "timeout_no_timeout"
+    TIMEOUT_SUCCESS: str = "timeout_success"
+    TOS_BAN: str = "tos_ban"
+    TURBO_ONLY_COLOR: str = "turbo_only_color"
+    UNBAN_SUCCESS: str = "unban_success"
+    UNMOD_SUCCESS: str = "unmod_success"
+    UNRAID_ERROR_NO_ACTIVE_RAID: str = "unraid_error_no_active_raid"
+    UNRAID_ERROR_UNEXPECTED: str = "unraid_error_unexpected"
+    UNRAID_SUCCESS: str = "unraid_success"
+    UNRECOGNIZED_CMD: str = "unrecognized_cmd"
+    UNSUPPORTED_CHATROOMS_CMD: str = "unsupported_chatrooms_cmd"
+    UNTIMEOUT_BANNED: str = "untimeout_banned"
+    UNTIMEOUT_SUCCESS: str = "untimeout_success"
+    USAGE_BAN: str = "usage_ban"
+    USAGE_CLEAR: str = "usage_clear"
+    USAGE_COLOR: str = "usage_color"
+    USAGE_COMMERCIAL: str = "usage_commercial"
+    USAGE_DISCONNECT: str = "usage_disconnect"
+    USAGE_EMOTE_ONLY_OFF: str = "usage_emote_only_off"
+    USAGE_EMOTE_ONLY_ON: str = "usage_emote_only_on"
+    USAGE_FOLLOWERS_OFF: str = "usage_followers_off"
+    USAGE_FOLLOWERS_ON: str = "usage_followers_on"
+    USAGE_HELP: str = "usage_help"
+    USAGE_HOST: str = "usage_host"
+    USAGE_MARKER: str = "usage_marker"
+    USAGE_ME: str = "usage_me"
+    USAGE_MOD: str = "usage_mod"
+    USAGE_MODS: str = "usage_mods"
+    USAGE_R9K_OFF: str = "usage_r9k_off"
+    USAGE_R9K_ON: str = "usage_r9k_on"
+    USAGE_RAID: str = "usage_raid"
+    USAGE_SLOW_OFF: str = "usage_slow_off"
+    USAGE_SLOW_ON: str = "usage_slow_on"
+    USAGE_SUBS_OFF: str = "usage_subs_off"
+    USAGE_SUBS_ON: str = "usage_subs_on"
+    USAGE_TIMEOUT: str = "usage_timeout"
+    USAGE_UNBAN: str = "usage_unban"
+    USAGE_UNHOST: str = "usage_unhost"
+    USAGE_UNMOD: str = "usage_unmod"
+    USAGE_UNRAID: str = "usage_unraid"
+    USAGE_UNTIMEOUT: str = "usage_untimeout"
+    WHISPER_BANNED: str = "whisper_banned"
+    WHISPER_BANNED_RECIPIENT: str = "whisper_banned_recipient"
+    WHISPER_INVALID_ARGS: str = "whisper_invalid_args"
+    WHISPER_INVALID_LOGIN: str = "whisper_invalid_login"
+    WHISPER_INVALID_SELF: str = "whisper_invalid_self"
+    WHISPER_LIMIT_PER_MIN: str = "whisper_limit_per_min"
+    WHISPER_LIMIT_PER_SEC: str = "whisper_limit_per_sec"
+    WHISPER_RESTRICTED: str = "whisper_restricted"
+    WHISPER_RESTRICTED_RECIPIENT: str = "whisper_restricted_recipient"
 
 @IDEHelper
 @dataclass(frozen=True)
 class _CLEARCHAT(str):
-    """[summary]
-
-    Raises:
-        ConstantError: [description]
-        ConstantError: [description]
-
-    Returns:
-        [type] -- [description]
     """
+
+    """
+    _VALUE = "CLEARCHAT"
     BAN_DURATION: str = "ban-duration"
 
 @IDEHelper
 @dataclass(frozen=True)
 class _CLEARMSG(str):
     """ doc """
+    _VALUE: str = "CLEARMSG"
     LOGIN: str = "login"
     MESSAGE: str = "message"
-    TARGET_MSG_ID = "target-msg-id"
+    TARGET_MSG_ID: str = "target-msg-id"
+
+@IDEHelper   
+@dataclass(frozen=True)
+class _GLOBALUSERSTATE(str):
+    """g
+    """
+    _VALUE: str = "GLOBALUSERSTATE"
+    BADGE_INFO: str = 'badge-info'
+    BADGES: str = 'badges'
+    COLOR: str = 'color'
+    DISPLAY_NAME: str = 'display-name'
+    EMOTE_SETS: str = 'emote-sets'
+    TURBO: str = 'turbo'
+    USER_ID: str = 'user-id'
+    USER_TYPE: str = 'user-type'
 
 @IDEHelper
 @dataclass(frozen=True)
 class _PRIVMSG(str):
     """ doc """
+    _VALUE: str = "PRIVMSG"
+    BADGE_INFO: str = 'badge-info'
+    BADGES: str = 'badges'
+    BITS: str = 'bits'
+    COLOR: str = 'color'
+    DISPLAY_NAME: str = 'display-name'
+    EMOTES: str = 'emotes'
+    ID: str = 'id'
+    MOD: str = 'mod'
+    ROOM_ID: str = 'room-id'
+    EMOTE_SETS: str = 'emote-sets'
+    SUBSCRIBER: str = 'subscriber'
+    TMI_SENT_TS: str = 'tmi-sent-ts'
+    TURBO: str = 'turbo'
+    USER_ID: str = 'user-id'
+    USER_TYPE: str = 'user-type'  
+
+@IDEHelper
+@dataclass(frozen=True)
+class _ROOMSTATE(str):
+    """ doc """
+    _VALUE: str = "ROOMSTATE"
+    EMOTE_ONLY: str = "emote-only"
+    FOLLOWERS_ONLY: str = "followers-only"
+    R9K: str = "r9k"
+    SLOW: str = "slow"
+    SUBS_ONLY: str = "subs-only" 
 
 @IDEHelper
 @dataclass(frozen=True)
 class _USERNOTICE(str):
     """ doc """
+    _VALUE: str = "USERNOTICE"
+    BADGE_INFO: str = 'badge-info'
+    BADGES: str = 'badges'
+    BITS: str = 'bits'
+    COLOR: str = 'color'
+    DISPLAY_NAME: str = 'display-name'
+    EMOTES: str = 'emotes'
+    ID: str = 'id'
+    MOD: str = 'mod'
+    ROOM_ID: str = 'room-id'
+    EMOTE_SETS: str = 'emote-sets'
+    SUBSCRIBER: str = 'subscriber'
+    TMI_SENT_TS: str = 'tmi-sent-ts'
+    TURBO: str = 'turbo'
+    USER_ID: str = 'user-id'
+    USER_TYPE: str = 'user-type'
+    MSG_PARAM_CUMULATIVE_MONTHS: str = "msg-param-cumulative-months"
+    MSG_PARAM_DISPLAYNAME: str = "msg-param-displayName"
+    MSG_PARAM_LOGIN: str = "msg-param-login"
+    MSG_PARAM_MONTHS: str = "msg-param-months"
+    MSG_PARAM_PROMO_GIFT_TOTAL: str = "msg-param-promo-gift-total"
+    MSG_PARAM_PROMO_NAME: str = "msg-param-promo-name"
+    MSG_PARAM_RECIPIENT_DISPLAY_NAME: str = "msg-param-recipient-display-name"
+    MSG_PARAM_RECIPIENT_ID: str = "msg-param-recipient-id"
+    MSG_PARAM_RECIPIENT_USER_NAME: str = "msg-param-recipient-user-name"
+    MSG_PARAM_SENDER_LOGIN: str = "msg-param-sender-login"
+    MSG_PARAM_SENDER_NAME: str = "msg-param-sender-name"
+    MSG_PARAM_SHOULD_SHARE_STREAK: str = "msg-param-should-share-streak"
+    MSG_PARAM_STREAK_MONTHS: str = "msg-param-streak-months"
+    MSG_PARAM_SUB_PLAN: str = "msg-param-sub-plan"
+    MSG_PARAM_SUB_PLAN_NAME: str = "msg-param-sub-plan-name"
+    MSG_PARAM_VIEWERCOUNT: str = "msg-param-viewerCount"
+    MSG_PARAM_RITUAL_NAME: str = "msg-param-ritual-name"
+    MSG_PARAM_THRESHOLD: str = "msg-param-threshold"
+
 @IDEHelper
 @dataclass(frozen=True)
 class _USERSTATE(str):
     """ doc """
-
+    _VALUE: str = "USERSTATE"
+    BADGE_INFO: str = "badge-info"
+    BADGES: str = "badges"
+    COLOR: str = "color"
+    DISPLAY_NAME: str = "display-name"
+    EMOTE_SETS: str = "emote-sets"
+    MOD: str = "mod"
+    SUBSCRIBER: str = "subscriber"
+    TURBO: str = "turbo"
+    USER_TYPE: str = "user-type"
+    BADGE_INFO: str = "badge-info"
+    BADGES: str = "badges"
+    COLOR: str = "color"
+    DISPLAY_NAME: str = "display-name"
+    EMOTE_SETS: str = "emote-sets"
+    MOD: str = "mod"
+    SUBSCRIBER: str = "subscriber"
+    TURBO: str = "turbo"
+    USER_TYPE: str = "user-type"
 
 @dataclass(frozen=True)
 class COMMANDS:
     """
-    :Raises: ConstantError: raise on trying to change
+    
     """
-    LOGIN_UNSUCCESSFUL = "LOGIN_UNSUCCESSFUL"
-    MESSAGE = "PRIVMSG"
-    JOIN = "JOIN"
-    RECEIVED = "RECEIVED"
-    CONNECTED = "372"
-    ERROR = "ERROR"
-    DISCONNECTED = "DISCONNECTED"
-    USERNAME = "001"
-    NAMES = "353"
-    WHISPER = "WHISPER"
-    PART = "PART"
-    TMI_TWITCH_TV = "tmi.twitch.tv"
-    HOSTTARGET: str =  "HOSTTARGET"
+    LOGIN_UNSUCCESSFUL: str = "LOGIN_UNSUCCESSFUL"
+    MESSAGE: str = "PRIVMSG"
+    JOIN: str = "JOIN"
+    RECEIVED: str = "RECEIVED"
+    CONNECTED: str = "372"
+    ERROR: str = "ERROR"
+    DISCONNECTED: str = "DISCONNECTED"
+    USERNAME: str = "001"
+    NAMES: str = "353"
+    WHISPER: str = "WHISPER"
+    PART: str = "PART"
+    TMI_TWITCH_TV: str = "tmi.twitch.tv"
     NOTICE: str = "NOTICE"
     RECONNECT: str  = "RECONNECT" 
-    GLOBALUSERSTATE:str = "GLOBALUSERSTATE"
-    CLEARCHAT: str = "CLEARCHAT"
-    CLEARMSG: str = "CLEARMSG"
-    USERNOTICE: str  = "USERNOTICE"
-    USERSTATE: str =  "USERSTATE"
+    HOSTTARGET: str = "HOSTTARGET"
+    GLOBALUSERSTATE: _GLOBALUSERSTATE = _GLOBALUSERSTATE()
+    CLEARCHAT: _CLEARCHAT = _CLEARCHAT()
+    CLEARMSG: _CLEARMSG = _CLEARMSG()
+    USERNOTICE: _USERNOTICE = _USERNOTICE()
+    USERSTATE: _USERSTATE =  _USERSTATE()
     ROOMSTATE: _ROOMSTATE = _ROOMSTATE()
     MESSAGEIDS: _MESSAGEIDS = _MESSAGEIDS()
 
 class MessageHandler():
-    """
-    Handles twitch message and emits events based on Commands and msgid tags
-    Commands:
-    """
+    """ MessageHandler - Handles twitch IRC messages and emits events based on Commands and msgid tags """
     def __init__(self):
         self.COMMANDS: COMMANDS = COMMANDS()
 
-    def handleMessage(self, msg: str)->list:
+    def handleMessage(self, IrcMessage: str)->[str, Message]:
         """  handleMessage     """
-
         try:
-            message = self._parse(msg)
-            if message is None:
+            if not isinstance(IrcMessage, str):
+                raise TypeError("MessageHandler.handleMessage requires input of type str")
+            message = self._parse(IrcMessage)
+            
+            if message is None: # invalid message
                 return[None, None]
 
             # Populate message values
-            message.channel.name: str = message.params[0] if len(message.params) > 0 else None
+            message.channel: str = message.params[0] if len(message.params) > 0 else None
             message.text: str = message.params[1] if len(message.params) > 1 else None
             message.id: str = message.tags.get("msg-id")
-            message.raw: str = msg
+            message.raw: str = IrcMessage
             message.username: str = message.tags.get("display-name")
 
             # Parse badges and emotes
@@ -347,12 +403,11 @@ class MessageHandler():
 
         # Handle message with prefix "tmi.twitch.tv"
         if message.prefix == self.COMMANDS.TMI_TWITCH_TV:
-            # Handle command  bot Username
+            # Handle command bot Username
             if message.command == self.COMMANDS.USERNAME:
                 username = message.params[0]
                # Chatroom NOTICE check msgid tag
             elif message.command == self.COMMANDS.NOTICE:
-                
                 if message.id in self.COMMANDS.MESSAGEIDS.__dict__.values():
                     return [self.COMMANDS.NOTICE, message]
                 else:
@@ -372,27 +427,42 @@ class MessageHandler():
                 return [self.COMMANDS.WHISPER, message]
             elif message.command == self.COMMANDS.NAMES:
                 return [self.COMMANDS.NAMES, message]
-        return [None, None]
+
+        return [None, None] # invalid message
 
     @staticmethod
     def _badges(tags: dict)->dict:
-        """parse badges dict"""
+        """ MessageHandler._badges - Parse tags['badges'] from str to dict and update tags['badges']
+        
+            :param tags: tags from parsed IRC message
+            :type event: dict
+
+            :return: tags
+            :rtype: dict
+        """
         try:
             if ("badges" in tags and isinstance(tags.get("badges"), str)):
                 badges = tags.get("badges").split(",")
+                tags["badges"]: dict = {}
                 for badge in badges:
                     key, value = badge.split("/")
                     if value is None:
                         return tags
                     tags["badges"][key] = value
             return tags
-        except Exception as error:
+        except:
             pass
 
-
     @staticmethod
-    def _emotes(tags: dict)->list:
-        """ parse emotes to list"""
+    def _emotes(tags: dict)->dict:
+        """ MessageHandler._emotes - Parse tags['emotes'] from str to list and update tags['emotes']
+        
+            :param tags: tags from parsed IRC message
+            :type event: dict
+
+            :return: tags
+            :rtype: dict
+        """
         try:
             if ("emotes" in tags and isinstance(tags.get("emotes"), str)):
                 emoticons = tags.get("emotes").split("/")
@@ -407,10 +477,17 @@ class MessageHandler():
 
     @staticmethod
     def _parse(data: str)->Message:
-        """ doc """
+        """ MessageHandler._parse - Parses IRC messages to Message type
+        
+            :param data: string from IRC server
+            :type event: str
+
+            :return: message
+            :rtype: Message
+        """
         message = Message()
         if not isinstance(data, str):
-            raise TypeError("_Parse.parse requires input of type str")
+            raise TypeError("MessageHandler._parse requires input of type str")
 
         position: int = 0
         nextspace: int = 0
@@ -418,33 +495,33 @@ class MessageHandler():
         if len(data) < 1:
             return None
 
-        if data.startswith(chr(64)): #starts with @ symbol
+        if data.startswith("@"): 
             nextspace = data.find(" ")
 
-            if nextspace == -1: #invalid message form
-                return None
+            if nextspace == -1:
+                return None  # invalid message form
 
             tags = data[1:nextspace].split(";")
 
             for tag in tags:
-                pair = tag.split("=")
-                message.tags[pair[0]] = pair[1] or True
+                key, value = tag.split("=")
+                message.tags[key] = value or True
 
             position = nextspace + 1
 
-        while data[position] == chr(32):
+        while data[position] == " ":
             position += 1
 
-        if data[position] == chr(58):
-            nextspace = data.find(chr(32), position)
+        if data[position] == ":":
+            nextspace = data.find(" ", position)
 
-            if nextspace == -1:
-                return None
+            if nextspace == -1: 
+                return None # invalid message form
 
             message.prefix = data[position + 1:nextspace]
             position = nextspace + 1
 
-            while data[position] == chr(32):
+            while data[position] == " ":
                 position += 1
 
         nextspace = data.find(" ", position)
@@ -454,12 +531,13 @@ class MessageHandler():
                 message.command = data[position:]
                 return message
 
-            return None
+            return None # invalid message form
+
         message.command = data[position:nextspace]
 
         position = nextspace + 1
 
-        while data[position] == chr(32):
+        while data[position] == " ":
             position += 1
 
         dataLen = len(data)
@@ -467,7 +545,7 @@ class MessageHandler():
         while position < dataLen:
             nextspace = data.find(" ", position)
 
-            if data[position] == chr(58):#check for ':'
+            if data[position] == ":": 
                 message.params.append(data[position + 1:])
                 break
 
@@ -475,7 +553,7 @@ class MessageHandler():
                 message.params.append(data[position:nextspace])
                 position = nextspace + 1
 
-                while data[position] == chr(32):
+                while data[position] == " ":
                     position += 1
                 continue
 

@@ -1,84 +1,122 @@
-""" IRC Conroller  """
+""" IRC Conroller 
+    
+    .. codeauthor:: Eli Reid <EliR@EliReid.com>
+"""
 import socket
 import time
 
-
 class IrcController():
-    """description of class"""
-    def __init__(self, server: str, port: int, pingwait: int = 3000):
+    """ IRC Conroller
+
+        :param server: address to IRC server
+        :type server: str
+
+        :param port: IRC server port
+        :type port: int
+
+        :param pingwait: keep alive delay 
+        :type ping: int
+    """
+    def __init__(self, server: str, port: int, pingwait: int = 300)->None:
         # Populate values
         self._server: str = server
         self._port: int = port
         self._pingWait: int = pingwait
-        self._pingString: str = ""
         self._lastPing: time = time.time()
-        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
+        self._connected: bool = False
+        self._socket: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
     def connect(self)->None:
-        """
-
-        Connect to IRC server
+        """ IrcController.connect - Creates new socket & Opens connection to IRC server  
+        
+            :return: None
+            :rtype: None
         """
         try:
             # Create new socket and connect
             self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
             self._socket.connect((self._server, self._port))
-
-            return
-        except Exception as error:
-            raise Exception(error)
-
+            self._connected =True
+            print(f"Connected to {self._server}:{self._port}!")
+        except socket.error as error:
+            self.disconnect()
+            
     def disconnect(self)->None:
-        """ diconnnect """
+        """ IrcController.disconnect - Closes sockets & Disconects from IRC server 
+        
+            :return: None
+            :rtype: None
+        """
         self._socket.close()
+        print("Disconneted!")
+        self._connected = False
 
     def send(self, data: str)->None:
-        """ send"""
-        try:
-            self._socket.setblocking(True)
-            if not data.endswith("\r\n"):
-                data += "\r\n"
-            self._socket.send(data.encode())
+        """ IrcController.send - sends to server 
             
-            return 
-        except Exception as error:
-            raise Exception(error)
+            :param data: string to be sent to IRC server
+            :type event: str
+
+            :return: None
+            :rtype: None
+        """
+        try:
+            data = f"{data}\r\n" if not data.endswith("\r\n") else data
+            self._socket.sendall(data.encode())
+        except socket.error as error:
+            self.disconnect()
 
     def receive(self)->str:
-        """  receive """
-
+        """ IrcController.receive - Receives all data from socket buffer 
+        
+            :return: data 
+            :rtype: str
+        """
         data: str = ""
-        # keep alive ping
         self._ping()
-        while True:
+        while self._connected:
+            self._socket.setblocking(False)
             try:
-                # disable sockets error supression to maintian local event loop
-                self._socket.setblocking(False)
-                # Check for received data and handle any data
+                # Should be ready to read
                 data += self._socket.recv(4096).decode()
                 if data.startswith("PING"):
                     self._pong(data)
-            except WindowsError as error:
-                # Socket.recev buffer is empty return data
-                if error.errno == 10035:
-                    if len(data) > 0:
-                        return data
+            except BlockingIOError:
+                self._socket.setblocking(True)
+                break
+            except socket.error:
+                self.disconnect()
+        return data if len(data) > 0 else None 
+
+    def isConnected(self)->bool:
+        """ IrcController.isConnected - Gets status of server connection
+            
+            :return: self._connected
+            :rtype: bool
+        """
+        return True if self._connected else False
 
     def _ping(self)->None:
-        """ _ping  """
+        """ IrcController._ping - sends keep alive ping if pingwait timer runs out  
+        
+            :return: None
+            :rtypr: None
+        """
         try:
             if time.time() - self._lastPing > self._pingWait:
                 self._lastPing = time.time()
                 self.send("PING")
-        except Exception as error:
-            raise Exception(error)
+        except socket.error as error:
+            self.disconnect()
 
     def _pong(self, data: str)->None:
-        """ _ping  """
+        """ IrcController._pong - replies to server ping 
+
+            :return: None
+            :rtypr: None   
+        """
         try:
             self._lastPing = time.time()
             self.send(data.replace("PING", "PONG"))
-            return
-        except Exception as error:
-            raise Exception(error)
+        except socket.error as error:
+            self.disconnect()

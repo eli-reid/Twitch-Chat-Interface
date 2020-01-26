@@ -5,8 +5,7 @@
     <ProjectGuid>472ad081-0c14-4b28-83ca-d11c5a4f8e37</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>chat.py</StartupFile>
     <SearchPath>..\TwitchChatInterface</SearchPath>
     <WorkingDirectory>..\TwitchChatInterface</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -39,7 +38,10 @@
     <Compile Include="MessageHandler.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tests\test_eventHandler.py">
+    <Compile Include="tests\test_MessageHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\test_EventHandler.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TwitchChatInterface.py" />
