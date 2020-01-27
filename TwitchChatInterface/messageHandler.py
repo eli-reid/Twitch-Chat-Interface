@@ -3,7 +3,11 @@ from typing import Dict, List
 
 @dataclass
 class RoomState(type):
-    """ doc """
+    """[summary]
+    
+    :param type: [description]
+    :type type: [type]
+    """
     emote_only: int  = field(default=0)
     rituals: int = field(default=0)
     followers_only: int  = field(default=0)
@@ -472,12 +476,14 @@ class MessageHandler():
         """
         try:
             if ("emotes" in tags and isinstance(tags.get("emotes"), str)):
+                emotes: dict = {}
                 emoticons = tags.get("emotes").split("/")
                 for emoticon in emoticons:
                     key, value = emoticon.split(":")
                     if value is None:
                         return tags
-                    tags["emotes"][key] = value.split(",")
+                    emotes[key] = value.split(",")
+                tags["emotes"] = emotes
             return tags
         except:
             pass

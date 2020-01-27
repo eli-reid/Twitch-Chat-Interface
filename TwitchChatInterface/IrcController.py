@@ -1,5 +1,5 @@
 """ IRC Conroller 
-    
+
     .. codeauthor:: Eli Reid <EliR@EliReid.com>
 """
 import socket
@@ -39,16 +39,16 @@ class IrcController():
             self._connected =True
             print(f"Connected to {self._server}:{self._port}!")
         except socket.error as error:
-            self.disconnect()
+            self.disconnect(error)
             
-    def disconnect(self)->None:
+    def disconnect(self, reason)->None:
         """ IrcController.disconnect - Closes sockets & Disconects from IRC server 
         
             :return: None
             :rtype: None
         """
         self._socket.close()
-        print("Disconneted!")
+        print(f"Disconneted! {reason}")
         self._connected = False
 
     def send(self, data: str)->None:
@@ -64,7 +64,7 @@ class IrcController():
             data = f"{data}\r\n" if not data.endswith("\r\n") else data
             self._socket.sendall(data.encode())
         except socket.error as error:
-            self.disconnect()
+            self.disconnect(error)
 
     def receive(self)->str:
         """ IrcController.receive - Receives all data from socket buffer 
@@ -84,8 +84,8 @@ class IrcController():
             except BlockingIOError:
                 self._socket.setblocking(True)
                 break
-            except socket.error:
-                self.disconnect()
+            except socket.error as error:
+                self.disconnect(error)
         return data if len(data) > 0 else None 
 
     def isConnected(self)->bool:
@@ -107,7 +107,7 @@ class IrcController():
                 self._lastPing = time.time()
                 self.send("PING")
         except socket.error as error:
-            self.disconnect()
+            self.disconnect(error)
 
     def _pong(self, data: str)->None:
         """ IrcController._pong - replies to server ping 
@@ -119,4 +119,4 @@ class IrcController():
             self._lastPing = time.time()
             self.send(data.replace("PING", "PONG"))
         except socket.error as error:
-            self.disconnect()
+            self.disconnect(error)
