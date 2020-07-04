@@ -7,7 +7,7 @@ settings={
   "server": "irc.chat.twitch.tv",
   "port": 6667,
   "user": "edog0049a",
-  "password":"oauth:uqyosuh6zf54is2me2jl5l8qgahtlz",
+  "password":"apikey",
   "channels": ["theliljuju","edog0049a"],
   "caprequest" :"twitch.tv/tags twitch.tv/commands twitch.tv/membership" 
 }
